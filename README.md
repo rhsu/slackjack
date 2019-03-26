@@ -30,7 +30,7 @@ After setting up the `virtualenv`, all commands can be done through the `Makefil
 To install the app, (you'll need to do this the first time before you run the app), do
 `make install`
 
-To run the app, do `make run`
+To run the app, you'll need to start the virtualenv. This can be done by `source bin/activate`. After that run `make run`
 
 To remove the dependencies installed in the `virtualenv`, do `make uninstall`. This command
 is rarely used but will be useful once packages are updated in `requirements.txt`
