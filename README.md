@@ -15,6 +15,15 @@ $ which pip
 
 Important: not `pip3`!
 
+# .env
+after being added as a collaborator, you'll need a `.env` file which can be created via `touch .env`
+Put this file in the root directory. The token can be retrieved from this site: https://api.slack.com/apps/AH9DW4PJ8/install-on-team?success=1
+In the `.env` file type:
+
+```
+SLACK_BOT_TOKEN=<<<Bot User OAuth Access Token Here>>>
+```
+
 # Makefile
 After setting up the `virtualenv`, all commands can be done through the `Makefile`
 
