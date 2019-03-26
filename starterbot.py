@@ -2,7 +2,14 @@ import os
 import time
 import re
 from slackclient import SlackClient
+import logging
+from dotenv import load_dotenv
 
+# load .env variables
+load_dotenv()
+
+# sets default logging
+logging.basicConfig()
 
 # instantiate Slack client
 slack_client = SlackClient(os.environ.get('SLACK_BOT_TOKEN'))
