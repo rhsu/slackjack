@@ -1,4 +1,7 @@
 run:
+	python slackjack.py
+
+debug:
 	python starterbot.py
 
 clean:
