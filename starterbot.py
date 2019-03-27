@@ -17,10 +17,13 @@ slack_client = SlackClient(os.environ.get('SLACK_BOT_TOKEN'))
 starterbot_id = None
 
 # constants
-RTM_READ_DELAY = 0.5  # 1 second delay between reading from RTM
+RTM_READ_DELAY = 0.75  # 1 second delay between reading from RTM
 EXAMPLE_COMMAND = "do"
 MENTION_REGEX = "^<@(|[WU].+?)>(.*)"
 
+global_var = {
+    "hello": 0
+}
 
 def parse_bot_commands(slack_events):
     """
@@ -31,12 +34,56 @@ def parse_bot_commands(slack_events):
     """
     for event in slack_events:
         if event["type"] == "message" and "subtype" not in event:
+            if event["text"] == "register":
+                # from pdb import set_trace; set_trace()
+                user_id = event["user"]
+                # check if global_var contains the user
+                if user_id in global_var:
+                    slack_client.api_call(
+                        "chat.postMessage",
+                        channel=event["channel"],
+                        text="You are already registered"
+                    )
+                # register the user
+                else:
+                    global_var[user_id] = {
+                        "money": 100,
+                    }
+                    slack_client.api_call(
+                        "chat.postMessage",
+                        channel=event["channel"],
+                        text="OK. I registered you."
+                    )
+            elif event["text"] == "play":
+                # from pdb import set_trace; set_trace()
+                user_id = event["user"]
+                if user_id not in global_var:
+                    slack_client.api_call(
+                        "chat.postMessage",
+                        channel=event["channel"],
+                        text="You are not registered"
+                    )
+                else:
+                    global_var[user_id]["money"] -= 10
 
-            if event["text"] == "play":
+                    slack_client.api_call(
+                        "chat.postMessage",
+                        channel=event["channel"],
+                        text="A :spades: J :heart: BlackJack! You Win!"
+                    )
+                    global_var[user_id]["money"] += 20
+
+                    slack_client.api_call(
+                        "chat.postMessage",
+                        channel=event["channel"],
+                        text="You now have %s dollars" % global_var[user_id]["money"]
+                    )
+            elif event["text"] == "test me":
+                global_var["hello"] = global_var["hello"] + 1
                 slack_client.api_call(
                     "chat.postMessage",
                     channel=event["channel"],
-                    text="A :spades: J :heart: BlackJack! You Win!"
+                    text="test % s" % global_var["hello"]
                 )
 
             user_id, message = parse_direct_mention(event["text"])
@@ -59,7 +106,7 @@ def parse_direct_mention(message_text):
 
 def handle_command(command, channel):
     """
-        Executes bot command if the command is known
+    Executes bot command if the command is known
     """
     # Default response is help text for the user
     default_response = "Not sure what you mean. Try *{}*.".format(EXAMPLE_COMMAND)
