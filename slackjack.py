@@ -4,6 +4,7 @@ import re
 from slackclient import SlackClient
 import logging
 from dotenv import load_dotenv
+from game_controller import GameController
 
 # load .env variables
 load_dotenv()
@@ -21,9 +22,10 @@ RTM_READ_DELAY = 0.75  # 1 second delay between reading from RTM
 EXAMPLE_COMMAND = "do"
 MENTION_REGEX = "^<@(|[WU].+?)>(.*)"
 
-global_var = {
-    "hello": 0
-}
+# global_var = {
+#     "hello": 0
+# }
+
 
 def parse_bot_commands(slack_events):
     """
@@ -34,56 +36,15 @@ def parse_bot_commands(slack_events):
     """
     for event in slack_events:
         if event["type"] == "message" and "subtype" not in event:
-            if event["text"] == "register":
-                # from pdb import set_trace; set_trace()
-                user_id = event["user"]
-                # check if global_var contains the user
-                if user_id in global_var:
-                    slack_client.api_call(
-                        "chat.postMessage",
-                        channel=event["channel"],
-                        text="You are already registered"
-                    )
-                # register the user
-                else:
-                    global_var[user_id] = {
-                        "money": 100,
-                    }
-                    slack_client.api_call(
-                        "chat.postMessage",
-                        channel=event["channel"],
-                        text="OK. I registered you."
-                    )
-            elif event["text"] == "play":
-                # from pdb import set_trace; set_trace()
-                user_id = event["user"]
-                if user_id not in global_var:
-                    slack_client.api_call(
-                        "chat.postMessage",
-                        channel=event["channel"],
-                        text="You are not registered"
-                    )
-                else:
-                    global_var[user_id]["money"] -= 10
-
-                    slack_client.api_call(
-                        "chat.postMessage",
-                        channel=event["channel"],
-                        text="A :spades: J :heart: BlackJack! You Win!"
-                    )
-                    global_var[user_id]["money"] += 20
-
-                    slack_client.api_call(
-                        "chat.postMessage",
-                        channel=event["channel"],
-                        text="You now have %s dollars" % global_var[user_id]["money"]
-                    )
-            elif event["text"] == "test me":
-                global_var["hello"] = global_var["hello"] + 1
+            message = GameController().parse_command(
+                event["user"],
+                event["text"]
+            )
+            if message is not None:
                 slack_client.api_call(
                     "chat.postMessage",
                     channel=event["channel"],
-                    text="test % s" % global_var["hello"]
+                    text=message
                 )
 
             user_id, message = parse_direct_mention(event["text"])
