@@ -17,14 +17,13 @@ slack_client = SlackClient(os.environ.get('SLACK_BOT_TOKEN'))
 starterbot_id = None
 
 # constants
-RTM_READ_DELAY = 0.5  # 1 second delay between reading from RTM
+RTM_READ_DELAY = 0.75  # 1 second delay between reading from RTM
 EXAMPLE_COMMAND = "do"
 MENTION_REGEX = "^<@(|[WU].+?)>(.*)"
 
 global_var = {
     "hello": 0
 }
-
 
 def parse_bot_commands(slack_events):
     """
