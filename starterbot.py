@@ -17,7 +17,7 @@ slack_client = SlackClient(os.environ.get('SLACK_BOT_TOKEN'))
 starterbot_id = None
 
 # constants
-RTM_READ_DELAY = 1  # 1 second delay between reading from RTM
+RTM_READ_DELAY = 0.5  # 1 second delay between reading from RTM
 EXAMPLE_COMMAND = "do"
 MENTION_REGEX = "^<@(|[WU].+?)>(.*)"
 
@@ -31,6 +31,14 @@ def parse_bot_commands(slack_events):
     """
     for event in slack_events:
         if event["type"] == "message" and "subtype" not in event:
+
+            if event["text"] == "play":
+                slack_client.api_call(
+                    "chat.postMessage",
+                    channel=event["channel"],
+                    text="A :spades: J :heart: BlackJack! You Win!"
+                )
+
             user_id, message = parse_direct_mention(event["text"])
             if user_id == starterbot_id:
                 return message, event["channel"]
