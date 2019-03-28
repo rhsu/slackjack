@@ -22,7 +22,7 @@ class GameController:
                         "username": parse[1],
                         "money": 100,
                         "hand": [],
-                        # TODO put deck here
+                        "deck": Deck(),
                     }
                     message = "OK. I registered %s" % parse[1]
         elif command.startswith("bet"):
@@ -39,10 +39,6 @@ class GameController:
                     return "invalid bet amount"
                 GLOBAL_STORE[user_id]["money"] += bet_amount
                 message = "A :spades: J :heart: BlackJack! %s Wins! Total: %s" % (GLOBAL_STORE[user_id]["username"], GLOBAL_STORE[user_id]["money"])
-        elif command.startswith("test"):
-            deck = Deck()
-            card = deck.shuffle().deal()
-            return "%s %s" % (str(card), card.value())
         elif command.startswith("play"):
             game = GameService(GLOBAL_STORE[user_id])
             return game.play()
