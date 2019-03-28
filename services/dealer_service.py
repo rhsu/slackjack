@@ -1,3 +1,6 @@
+from hand_util import hand_sum
+
+
 class DealerService:
     def __init__(self, user_data):
         self.user_data = user_data
@@ -15,4 +18,5 @@ class DealerService:
         self.dealer_hand().append(self.deck().pop())
 
     def play(self):
-        pass
+        while(hand_sum(self.dealer_hand() < 16)):
+            self.dealer_hand().append(self.deck().pop())
