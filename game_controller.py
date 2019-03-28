@@ -48,7 +48,7 @@ class GameController:
                     return "invalid bet amount"
                 GLOBAL_STORE[user_id]["money"] += bet_amount
                 message = "A :spades: J :heart: BlackJack! %s Wins! Total: %s" % (GLOBAL_STORE[user_id]["username"], GLOBAL_STORE[user_id]["money"])
-        elif command.startswith("play"):
+        elif command.startswith("hit"):
             return self.game_service.play()
         elif command.startswith("stay"):
             dealer_hand = self.dealer_service.play()
