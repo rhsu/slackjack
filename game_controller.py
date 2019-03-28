@@ -22,7 +22,7 @@ class GameController:
                         "username": parse[1],
                         "money": 100,
                         "hand": [],
-                        "deck": Deck().shuffle(),
+                        "deck": Deck(),
                     }
                     message = "OK. I registered %s" % parse[1]
         elif command.startswith("bet"):
