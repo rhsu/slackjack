@@ -15,17 +15,24 @@ class GameService:
         if len(self.hand()) == 0:
             self.hand().append(self.deck().deal())
             self.hand().append(self.deck().deal())
-            return hand_string(self.hand())
+            return "Dealer's hand is: %s. Your hand is %s" % (
+                    hand_string(self.user_data["dealer_hand"]),
+                    hand_string(self.hand())
+                )
         else:
             self.hand().append(self.deck().deal())
             total_value = 0
             for card in self.hand():
                 total_value += card.value()
             if total_value == 21:
+                # TODO need to end the game here.
                 return "21: You Win % s" % (hand_string(self.hand()))
             elif total_value > 21:
                 result = hand_string(self.hand())
                 self.user_data["hand"] = []
                 return "BUSTED!: % s. Restarted." % result
             else:
-                return "Your hand is %s" % hand_string(self.hand())
+                return "Dealer's hand is: %s. Your hand is %s" % (
+                    hand_string(self.user_data["dealer_hand"]),
+                    hand_string(self.hand())
+                )
