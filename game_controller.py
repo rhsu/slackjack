@@ -18,11 +18,13 @@ class GameController:
                 if user_id in GLOBAL_STORE:
                     message = "A user is already registered with this ID"
                 else:
+                    # TODO refactor this
                     GLOBAL_STORE[user_id] = {
                         "username": parse[1],
                         "money": 100,
                         "hand": [],
                         "deck": Deck(),
+                        "dealer_hand": []
                     }
                     message = "OK. I registered %s" % parse[1]
         elif command.startswith("bet"):
