@@ -29,6 +29,3 @@ class GameService:
                 return "BUSTED!: % s. Restarted." % result
             else:
                 return "Your hand is %s" % hand_string(self.hand())
-
-    # def _hand_to_string(self):
-    #     return " ".join(map(lambda x: str(x), self.hand()))
