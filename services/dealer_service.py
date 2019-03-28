@@ -18,5 +18,6 @@ class DealerService:
         self.dealer_hand().append(self.deck().deal())
 
     def play(self):
-        while(hand_sum(self.dealer_hand() < 16)):
+        while(hand_sum(self.dealer_hand()) <= 16):
             self.dealer_hand().append(self.deck().deal())
+        return self.dealer_hand()
