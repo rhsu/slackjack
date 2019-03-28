@@ -16,9 +16,10 @@ class Deck:
 
     def shuffle(self):
         shuffle(self.cards)
+        return self
 
     def deal(self):
-        self.cards.pop()
+        return self.cards.pop()
 
     def __str__(self):
         result = ",".join(map(lambda x: str(x), self.cards))
