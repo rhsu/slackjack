@@ -23,5 +23,3 @@ class Deck:
     def __str__(self):
         result = ",".join(map(lambda x: str(x), self.cards))
         return result
-        # for card in self.cards:
-        #     result
