@@ -12,4 +12,8 @@ def test_busted(default_user_data, some_busted_hand):
     default_user_data["hand"] = some_busted_hand
     service = GameService(default_user_data)
     response = service.play()
-    print(response)
+    assert "BUSTED!" in response
+    assert "Q :spades:" in response
+    assert "K :spades:" in response
+    assert "J :spades:" in response
+    assert "Restarted." in response
