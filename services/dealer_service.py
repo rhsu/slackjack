@@ -13,3 +13,6 @@ class DealerService:
             raise RuntimeError("dealer is already initialized")
         self.dealer_hand().append(self.deck().pop())
         self.dealer_hand().append(self.deck().pop())
+
+    def play(self):
+        pass
