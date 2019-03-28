@@ -1,4 +1,4 @@
-from hand_util import hand_sum
+from utils.hand_util import hand_sum
 
 
 class DealerService:
@@ -14,9 +14,9 @@ class DealerService:
     def init_dealer(self):
         if (len(self.dealer_hand()) != 0):
             raise RuntimeError("dealer is already initialized")
-        self.dealer_hand().append(self.deck().pop())
-        self.dealer_hand().append(self.deck().pop())
+        self.dealer_hand().append(self.deck().deal())
+        self.dealer_hand().append(self.deck().deal())
 
     def play(self):
         while(hand_sum(self.dealer_hand() < 16)):
-            self.dealer_hand().append(self.deck().pop())
+            self.dealer_hand().append(self.deck().deal())

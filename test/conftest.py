@@ -8,6 +8,7 @@ def default_user_data():
     user_data = {
         "hand": [],
         "deck": Deck(),
+        "dealer_hand": [],
     }
     return user_data
 
