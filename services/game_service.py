@@ -25,11 +25,14 @@ class GameService:
             for card in self.hand():
                 total_value += card.value()
             if total_value == 21:
-                # TODO need to end the game here.
-                return "21: You Win % s" % (hand_string(self.hand()))
+                result = hand_string(self.hand())
+                self.user_data["hand"] = []
+                self.user_data["dealer_hand"] = []
+                return "21: You Win % s" % (result)
             elif total_value > 21:
                 result = hand_string(self.hand())
                 self.user_data["hand"] = []
+                self.user_data["dealer_hand"] = []
                 return "BUSTED!: % s. Restarted." % result
             else:
                 return "Dealer's hand is: %s. Your hand is %s" % (
