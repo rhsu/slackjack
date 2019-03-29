@@ -15,8 +15,8 @@ class GameService:
         if len(self.hand()) == 0:
             self.hand().append(self.deck().deal())
             self.hand().append(self.deck().deal())
-            return "Dealer's hand is: %s. Your hand is %s" % (
-                    hand_string(self.user_data["dealer_hand"]),
+            return "Dealer's hand is: %s and :question:. Your hand is %s" % (
+                    self.user_data["dealer_hand"][0],
                     hand_string(self.hand())
                 )
         else:
@@ -35,7 +35,7 @@ class GameService:
                 self.user_data["dealer_hand"] = []
                 return "BUSTED!: % s. Restarted." % result
             else:
-                return "Dealer's hand is: %s. Your hand is %s" % (
-                    hand_string(self.user_data["dealer_hand"]),
-                    hand_string(self.hand())
-                )
+                return "Dealer's hand is: %s and :question:. Your hand is %s" % (
+                        self.user_data["dealer_hand"][0],
+                        hand_string(self.hand())
+                    )
