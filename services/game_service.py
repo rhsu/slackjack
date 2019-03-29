@@ -17,6 +17,7 @@ class GameService:
             self.hand().append(self.deck().deal())
 
             # TODO need to rethink this logic
+            # I think the reset messed this up. Need a better way to reset.
             if len(self.user_data["dealer_hand"]) == 0:
                 self.user_data["dealer_hand"].append(self.deck().deal())
                 self.user_data["dealer_hand"].append(self.deck().deal())
