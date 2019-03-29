@@ -15,6 +15,13 @@ class GameService:
         if len(self.hand()) == 0:
             self.hand().append(self.deck().deal())
             self.hand().append(self.deck().deal())
+
+            # TODO need to rethink this logic
+            # I think the reset messed this up. Need a better way to reset.
+            if len(self.user_data["dealer_hand"]) == 0:
+                self.user_data["dealer_hand"].append(self.deck().deal())
+                self.user_data["dealer_hand"].append(self.deck().deal())
+
             return "Dealer's hand is: %s and :question:. %s's hand is %s" % (
                     self.user_data["dealer_hand"][0],
                     self.user_data["username"],
@@ -35,7 +42,8 @@ class GameService:
                 result = hand_string(self.hand())
                 self.user_data["hand"] = []
                 self.user_data["dealer_hand"] = []
-                return "BUSTED!: %s. %s Lost." % (self.result, self.user_data["username"])
+                return "BUSTED!: %s. %s Lost." % (
+                    self.result, self.user_data["username"])
             else:
                 return "Dealer's hand is: %s and :question:. %s's hand is %s" % (
                         self.user_data["dealer_hand"][0],
