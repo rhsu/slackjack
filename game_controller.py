@@ -60,13 +60,28 @@ class GameController:
             if hand_sum(dealer_hand) > 21:
                 GLOBAL_STORE[self.user_id]["hand"] = []
                 GLOBAL_STORE[self.user_id]["dealer_hand"] = []
-                return "Dealer has:  %s. You have: %s. Dealer busted. You win!" % (hand_string(dealer_hand), hand_string(players_hand))
+                return "Dealer has: %s. %s has: %s. Dealer busted. %s wins!" % (
+                    hand_string(dealer_hand),
+                    GLOBAL_STORE[self.user_id]["username"],
+                    hand_string(players_hand),
+                    GLOBAL_STORE[self.user_id]["username"]
+                )
             elif player_sum > dealer_sum:
                 GLOBAL_STORE[self.user_id]["hand"] = []
                 GLOBAL_STORE[self.user_id]["dealer_hand"] = []
-                return "Dealer has:  %s. You have: %s. You win!" % (hand_string(dealer_hand), hand_string(players_hand))
+                return "Dealer has: %s. %s has: %s. %s wins!" % (
+                    hand_string(dealer_hand),
+                    GLOBAL_STORE[self.user_id]["username"],
+                    hand_string(players_hand),
+                    GLOBAL_STORE[self.user_id]["username"]
+                )
             else:
                 GLOBAL_STORE[self.user_id]["hand"] = []
                 GLOBAL_STORE[self.user_id]["dealer_hand"] = []
-                return "Dealer has:  %s. You have: %s. You lose!" % (hand_string(dealer_hand), hand_string(players_hand))
+                return "Dealer has: %s. %s has: %s. %s loses!" % (
+                    hand_string(dealer_hand),
+                    GLOBAL_STORE[self.user_id]["username"],
+                    hand_string(players_hand),
+                    GLOBAL_STORE[self.user_id]["username"]
+                )
         return message
