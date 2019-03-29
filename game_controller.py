@@ -50,7 +50,7 @@ class GameController:
                 message = "A :spades: J :heart: BlackJack! %s Wins! Total: %s" % (GLOBAL_STORE[self.user_id]["username"], GLOBAL_STORE[self.user_id]["money"])
         elif command.startswith("hit"):
             return self.game_service.play()
-        elif command.startswith("stay"):
+        elif command.startswith("stay") or command.startswith("stand"):
             dealer_hand = self.dealer_service.play()
             dealer_sum = hand_sum(dealer_hand)
             players_hand = GLOBAL_STORE[self.user_id]["hand"]
