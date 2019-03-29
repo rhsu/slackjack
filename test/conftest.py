@@ -6,6 +6,7 @@ from models.card import Card
 @pytest.fixture
 def default_user_data():
     user_data = {
+        "username": "someone",
         "hand": [],
         "deck": Deck(),
         "dealer_hand": [],
