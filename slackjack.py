@@ -36,8 +36,7 @@ def parse_bot_commands(slack_events):
     """
     for event in slack_events:
         if event["type"] == "message" and "subtype" not in event:
-            message = GameController().parse_command(
-                event["user"],
+            message = GameController(event["user"]).parse_command(
                 event["text"]
             )
             if message is not None:
