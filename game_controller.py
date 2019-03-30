@@ -1,8 +1,8 @@
 from global_store import GLOBAL_STORE
-from models.deck import Deck
 from services.dealer_service import DealerService
 from services.game_service import GameService
 from services.rebrand_service import RebrandService
+from services.register_service import RegisterService
 from utils.hand_util import hand_sum, hand_string
 
 
@@ -21,20 +21,10 @@ class GameController:
         if command.startswith("register"):
             parse = command.split(" ")
             if len(parse) < 2:
-                message = "must supply a username with register"
+                return "must supply a username with register"
             else:
-                if self.user_id in GLOBAL_STORE:
-                    message = "A user is already registered with this ID"
-                else:
-                    # TODO refactor this
-                    GLOBAL_STORE[self.user_id] = {
-                        "username": parse[1],
-                        "money": 100,
-                        "hand": [],
-                        "deck": Deck(),
-                        "dealer_hand": []
-                    }
-                    message = "OK. I registered %s" % parse[1]
+                message = RegisterService(self.user_id, parse[1]).register()
+                return message
         elif command.startswith("rebrand"):
             # TODO maybe put parse = command.split(" ") at the top
             parse = command.split(" ")

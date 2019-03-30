@@ -4,6 +4,12 @@ from models.deck import Deck
 import pytest
 
 
+@pytest.fixture(autouse=True)
+def run_around_test():
+    yield
+    GLOBAL_STORE.clear()
+
+
 @pytest.fixture
 def default_user_data():
     user_data = {
