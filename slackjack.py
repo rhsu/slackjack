@@ -5,6 +5,8 @@ from slackclient import SlackClient
 import logging
 from dotenv import load_dotenv
 from game_controller import GameController
+from utils.default_user_util import load_default_users
+
 
 # load .env variables
 load_dotenv()
@@ -18,13 +20,9 @@ slack_client = SlackClient(os.environ.get('SLACK_BOT_TOKEN'))
 starterbot_id = None
 
 # constants
-RTM_READ_DELAY = 0.75  # 1 second delay between reading from RTM
+RTM_READ_DELAY = 0.75
 EXAMPLE_COMMAND = "do"
 MENTION_REGEX = "^<@(|[WU].+?)>(.*)"
-
-# global_var = {
-#     "hello": 0
-# }
 
 
 def parse_bot_commands(slack_events):
@@ -86,6 +84,8 @@ def handle_command(command, channel):
 
 
 if __name__ == "__main__":
+    load_default_users()
+
     if slack_client.rtm_connect(with_team_state=False):
         print("Starter Bot connected and running!")
         # Read bot's user ID by calling Web API method `auth.test`
