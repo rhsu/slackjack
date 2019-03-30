@@ -16,5 +16,4 @@ def test_rebrand_successful(global_store):
         "username": "test"
     }
     service = RebrandService(5, "new name")
-    # TODO state bleed. investigate later
     assert service.rebrand() == "successfully rebranded to new name"
