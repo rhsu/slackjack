@@ -1,7 +1,8 @@
 from global_store import GLOBAL_STORE
 from models.deck import Deck
-from services.game_service import GameService
 from services.dealer_service import DealerService
+from services.game_service import GameService
+from services.rebrand_service import RebrandService
 from utils.hand_util import hand_sum, hand_string
 
 
@@ -34,6 +35,12 @@ class GameController:
                         "dealer_hand": []
                     }
                     message = "OK. I registered %s" % parse[1]
+        elif command.startswith("rebrand"):
+            # TODO maybe put parse = command.split(" ") at the top
+            parse = command.split(" ")
+            if len(parse) < 2:
+                return "must supply a username with rebrand"
+            return RebrandService(self.user_id, parse[1]).rebrand()
         elif command.startswith("bet"):
             # check if user exists
             if self.user_id not in GLOBAL_STORE:
@@ -48,7 +55,7 @@ class GameController:
                     return "invalid bet amount"
                 GLOBAL_STORE[self.user_id]["money"] += bet_amount
                 message = "A :spades: J :heart: BlackJack! %s Wins! Total: %s" % (GLOBAL_STORE[self.user_id]["username"], GLOBAL_STORE[self.user_id]["money"])
-        elif command.startswith("hit"):
+        elif command.startswith("hit") or command.startswith("play"):
             return self.game_service.play()
         elif command.startswith("stay") or command.startswith("stand"):
             dealer_hand = self.dealer_service.play()
@@ -60,13 +67,28 @@ class GameController:
             if hand_sum(dealer_hand) > 21:
                 GLOBAL_STORE[self.user_id]["hand"] = []
                 GLOBAL_STORE[self.user_id]["dealer_hand"] = []
-                return "Dealer has:  %s. You have: %s. Dealer busted. You win!" % (hand_string(dealer_hand), hand_string(players_hand))
+                return "Dealer has: %s. %s has: %s. Dealer busted. %s wins!" % (
+                    hand_string(dealer_hand),
+                    GLOBAL_STORE[self.user_id]["username"],
+                    hand_string(players_hand),
+                    GLOBAL_STORE[self.user_id]["username"]
+                )
             elif player_sum > dealer_sum:
                 GLOBAL_STORE[self.user_id]["hand"] = []
                 GLOBAL_STORE[self.user_id]["dealer_hand"] = []
-                return "Dealer has:  %s. You have: %s. You win!" % (hand_string(dealer_hand), hand_string(players_hand))
+                return "Dealer has: %s. %s has: %s. %s wins!" % (
+                    hand_string(dealer_hand),
+                    GLOBAL_STORE[self.user_id]["username"],
+                    hand_string(players_hand),
+                    GLOBAL_STORE[self.user_id]["username"]
+                )
             else:
                 GLOBAL_STORE[self.user_id]["hand"] = []
                 GLOBAL_STORE[self.user_id]["dealer_hand"] = []
-                return "Dealer has:  %s. You have: %s. You lose!" % (hand_string(dealer_hand), hand_string(players_hand))
+                return "Dealer has: %s. %s has: %s. %s loses!" % (
+                    hand_string(dealer_hand),
+                    GLOBAL_STORE[self.user_id]["username"],
+                    hand_string(players_hand),
+                    GLOBAL_STORE[self.user_id]["username"]
+                )
         return message
