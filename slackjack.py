@@ -5,8 +5,7 @@ from slackclient import SlackClient
 import logging
 from dotenv import load_dotenv
 from game_controller import GameController
-from global_store import GLOBAL_STORE
-from models.deck import Deck
+from utils.default_user_util import load_default_users
 
 
 # load .env variables
@@ -21,7 +20,7 @@ slack_client = SlackClient(os.environ.get('SLACK_BOT_TOKEN'))
 starterbot_id = None
 
 # constants
-RTM_READ_DELAY = 0.75  # 1 second delay between reading from RTM
+RTM_READ_DELAY = 0.75
 EXAMPLE_COMMAND = "do"
 MENTION_REGEX = "^<@(|[WU].+?)>(.*)"
 
@@ -84,21 +83,8 @@ def handle_command(command, channel):
     )
 
 
-def setup_default_users():
-    default_users = os.environ.get('DEFAULT_USERS')
-    for user in default_users.split(','):
-        user_id, username = user.split(':')
-        GLOBAL_STORE[user_id] = {
-            "username": username,
-            "money": 100,
-            "hand": [],
-            "deck": Deck(),
-            "dealer_hand": []
-        }
-
-
 if __name__ == "__main__":
-    setup_default_users()
+    load_default_users()
 
     if slack_client.rtm_connect(with_team_state=False):
         print("Starter Bot connected and running!")
