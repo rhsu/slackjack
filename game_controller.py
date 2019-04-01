@@ -48,10 +48,12 @@ class GameController:
         elif command.startswith("hit") or command.startswith("play"):
             return self.game_service.play()
         elif command.startswith("stay") or command.startswith("stand"):
-            dealer_hand = self.dealer_service.play()
-            dealer_sum = hand_sum(dealer_hand)
             players_hand = GLOBAL_STORE[self.user_id]["hand"]
             player_sum = hand_sum(players_hand)
+            if not len(players_hand):
+                return "Can't stand. Must `play` or `hit` first"
+            dealer_hand = self.dealer_service.play()
+            dealer_sum = hand_sum(dealer_hand)
             # TODO what happens if both players get 21? for now Im giving it
             # to the player
             if hand_sum(dealer_hand) > 21:
