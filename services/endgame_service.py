@@ -40,6 +40,14 @@ class EndgameService:
                 hand_string(players_hand),
                 self.user_data["username"]
             )
+        elif player_sum == dealer_sum:
+            self._reset()
+            return "Dealer has: %s. %s has: %s. %s ties!" % (
+                hand_string(dealer_hand),
+                self.user_data["username"],
+                hand_string(players_hand),
+                self.user_data["username"]
+            )
         else:
             self._reset()
             return "Dealer has: %s. %s has: %s. %s loses!" % (
