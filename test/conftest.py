@@ -13,27 +13,7 @@ def run_around_test():
 
 @pytest.fixture
 def default_user_data():
-    user_data = {
-        "username": "someone",
-        "hand": [],
-        "deck": Deck(),
-        "dealer_hand": [],
-    }
-    GLOBAL_STORE["fake_id"] = user_data
-    return user_data
-
-
-# @pytest.fixture
-# def fake_user_id():
-#     user_id = "fake_id"
-#     user_data = {
-#         "username": "someone",
-#         "hand": [],
-#         "deck": Deck(),
-#         "dealer_hand": [],
-#     }
-#     GLOBAL_STORE["fake_id"] = user_data
-#     return user_id
+    return _setup_default_user_data()
 
 
 @pytest.fixture
@@ -67,7 +47,20 @@ def global_store():
     return GLOBAL_STORE
 
 
-# @pytest.fixture
-# def endgame_service_fixture():
-#     default_user_data()
-#     return EndgameService("fake_id")
+@pytest.fixture
+def endgame_service_fixture():
+    _setup_default_user_data()
+    return EndgameService("fake_id")
+
+
+def _setup_default_user_data():
+    if "fake_id" in GLOBAL_STORE:
+        return GLOBAL_STORE["fake_id"]
+    user_data = {
+        "username": "someone",
+        "hand": [],
+        "deck": Deck(),
+        "dealer_hand": [],
+    }
+    GLOBAL_STORE["fake_id"] = user_data
+    return user_data
