@@ -4,6 +4,7 @@ from services.game_service import GameService
 from services.rebrand_service import RebrandService
 from services.register_service import RegisterService
 from utils.hand_util import hand_sum, hand_string
+from services.endgame_service import EndgameService
 
 
 class GameController:
@@ -48,39 +49,42 @@ class GameController:
         elif command.startswith("hit") or command.startswith("play"):
             return self.game_service.play()
         elif command.startswith("stay") or command.startswith("stand"):
-            players_hand = GLOBAL_STORE[self.user_id]["hand"]
-            player_sum = hand_sum(players_hand)
-            if not len(players_hand):
-                return "Can't stand. Must `play` or `hit` first"
-            dealer_hand = self.dealer_service.play()
-            dealer_sum = hand_sum(dealer_hand)
-            # TODO what happens if both players get 21? for now Im giving it
-            # to the player
-            if hand_sum(dealer_hand) > 21:
-                GLOBAL_STORE[self.user_id]["hand"] = []
-                GLOBAL_STORE[self.user_id]["dealer_hand"] = []
-                return "Dealer has: %s. %s has: %s. Dealer busted. %s wins!" % (
-                    hand_string(dealer_hand),
-                    GLOBAL_STORE[self.user_id]["username"],
-                    hand_string(players_hand),
-                    GLOBAL_STORE[self.user_id]["username"]
-                )
-            elif player_sum > dealer_sum:
-                GLOBAL_STORE[self.user_id]["hand"] = []
-                GLOBAL_STORE[self.user_id]["dealer_hand"] = []
-                return "Dealer has: %s. %s has: %s. %s wins!" % (
-                    hand_string(dealer_hand),
-                    GLOBAL_STORE[self.user_id]["username"],
-                    hand_string(players_hand),
-                    GLOBAL_STORE[self.user_id]["username"]
-                )
-            else:
-                GLOBAL_STORE[self.user_id]["hand"] = []
-                GLOBAL_STORE[self.user_id]["dealer_hand"] = []
-                return "Dealer has: %s. %s has: %s. %s loses!" % (
-                    hand_string(dealer_hand),
-                    GLOBAL_STORE[self.user_id]["username"],
-                    hand_string(players_hand),
-                    GLOBAL_STORE[self.user_id]["username"]
-                )
+            endgame = EndgameService(self.user_id, GLOBAL_STORE[self.user_id])
+            return endgame.determine()
+            # pass
+            # players_hand = GLOBAL_STORE[self.user_id]["hand"]
+            # player_sum = hand_sum(players_hand)
+            # if not len(players_hand):
+            #     return "Can't stand. Must `play` or `hit` first"
+            # dealer_hand = self.dealer_service.play()
+            # dealer_sum = hand_sum(dealer_hand)
+            # # TODO what happens if both players get 21? for now Im giving it
+            # # to the player
+            # if hand_sum(dealer_hand) > 21:
+            #     GLOBAL_STORE[self.user_id]["hand"] = []
+            #     GLOBAL_STORE[self.user_id]["dealer_hand"] = []
+            #     return "Dealer has: %s. %s has: %s. Dealer busted. %s wins!" % (
+            #         hand_string(dealer_hand),
+            #         GLOBAL_STORE[self.user_id]["username"],
+            #         hand_string(players_hand),
+            #         GLOBAL_STORE[self.user_id]["username"]
+            #     )
+            # elif player_sum > dealer_sum:
+            #     GLOBAL_STORE[self.user_id]["hand"] = []
+            #     GLOBAL_STORE[self.user_id]["dealer_hand"] = []
+            #     return "Dealer has: %s. %s has: %s. %s wins!" % (
+            #         hand_string(dealer_hand),
+            #         GLOBAL_STORE[self.user_id]["username"],
+            #         hand_string(players_hand),
+            #         GLOBAL_STORE[self.user_id]["username"]
+            #     )
+            # else:
+            #     GLOBAL_STORE[self.user_id]["hand"] = []
+            #     GLOBAL_STORE[self.user_id]["dealer_hand"] = []
+            #     return "Dealer has: %s. %s has: %s. %s loses!" % (
+            #         hand_string(dealer_hand),
+            #         GLOBAL_STORE[self.user_id]["username"],
+            #         hand_string(players_hand),
+            #         GLOBAL_STORE[self.user_id]["username"]
+            #     )
         return message
