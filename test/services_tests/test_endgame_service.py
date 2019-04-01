@@ -20,7 +20,7 @@
 # ):
 #     default_user_data["dealer_hand"] = winning_hand
 #     default_user_data["hand"] = losing_hand
-#     result = endgame_service_fixture.determine()
+#     result = endgame_service_fixture.determine()  
 #     assert result == "Dealer has: 9 :clubs: 2 :clubs: 10 :clubs:. someone "\
 #                      "has: 2 :hearts: 2 :spades. someone loses!"
 
