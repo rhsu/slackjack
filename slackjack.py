@@ -4,7 +4,7 @@ import re
 from slackclient import SlackClient
 import logging
 from dotenv import load_dotenv
-from game_controller import GameController
+from controllers.game_controller import GameController
 from utils.default_user_util import load_default_users
 
 
@@ -34,6 +34,9 @@ def parse_bot_commands(slack_events):
     """
     for event in slack_events:
         if event["type"] == "message" and "subtype" not in event:
+            # route here
+            # router = GameRouter(event)
+
             message = GameController(event["user"]).parse_command(
                 event["text"]
             )

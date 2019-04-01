@@ -15,6 +15,7 @@ class DealerService:
     #      I think a new dealer_service is initialized every time anyways
     def init_dealer(self):
         if (len(self.dealer_hand()) != 0):
+            print("Initializing dealer but dealer didn't exist")
             return
             # TODO figure out why this is crashing later.
             # raise RuntimeError("dealer is already initialized")
