@@ -1,10 +1,9 @@
 from global_store import GLOBAL_STORE
 from services.dealer_service import DealerService
+from services.endgame_service import EndgameService
 from services.game_service import GameService
 from services.rebrand_service import RebrandService
 from services.register_service import RegisterService
-from utils.hand_util import hand_sum, hand_string
-from services.endgame_service import EndgameService
 
 
 class GameController:
