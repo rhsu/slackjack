@@ -7,10 +7,10 @@ debug:
 test:
 	pytest test/
 
-clean:
+uninstall:
 	pip uninstall -y -r requirements.txt 
 
 install:
 	pip install -r requirements.txt
 
-.PHONY: run clean install debug test
+.PHONY: run install uninstall debug test

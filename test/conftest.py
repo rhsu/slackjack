@@ -1,4 +1,5 @@
 from global_store import GLOBAL_STORE
+from services.endgame_service import EndgameService
 from models.card import Card
 from models.deck import Deck
 import pytest
@@ -18,7 +19,21 @@ def default_user_data():
         "deck": Deck(),
         "dealer_hand": [],
     }
+    GLOBAL_STORE["fake_id"] = user_data
     return user_data
+
+
+# @pytest.fixture
+# def fake_user_id():
+#     user_id = "fake_id"
+#     user_data = {
+#         "username": "someone",
+#         "hand": [],
+#         "deck": Deck(),
+#         "dealer_hand": [],
+#     }
+#     GLOBAL_STORE["fake_id"] = user_data
+#     return user_id
 
 
 @pytest.fixture
@@ -31,5 +46,28 @@ def some_busted_hand():
 
 
 @pytest.fixture
+def losing_hand():
+    return [
+        Card("2", ":hearts:"),
+        Card("2", ":spades"),
+    ]
+
+
+@pytest.fixture
+def winning_hand():
+    return [
+        Card("9", ":clubs:"),
+        Card("2", ":clubs:"),
+        Card("10", ":clubs:"),
+    ]
+
+
+@pytest.fixture
 def global_store():
     return GLOBAL_STORE
+
+
+# @pytest.fixture
+# def endgame_service_fixture():
+#     default_user_data()
+#     return EndgameService("fake_id")
