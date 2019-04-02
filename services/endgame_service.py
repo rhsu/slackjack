@@ -16,44 +16,43 @@ class EndgameService:
         players_hand = self.user_data["hand"]
         player_sum = hand_sum(players_hand)
         player_name = self.user_data["username"]
+        player_hand_string = hand_string(players_hand)
         if not len(players_hand):
             return "Can't stand. Must `play` or `hit` first"
         # TODO pass this in as a parameter
         dealer_service = DealerService(self.user_data)
         dealer_service.init_dealer()
         dealer_hand = dealer_service.play()
+        dealer_hand_string = hand_string(dealer_hand)
         dealer_sum = hand_sum(dealer_hand)
         # TODO what happens if both players get 21? for now Im giving it
         # to the player
-        if hand_sum(dealer_hand) > 21:
-            self._reset()
+        self._reset()
+        if dealer_sum > 21:
             return "Dealer has: %s. %s has: %s. Dealer busted. %s wins!" % (
-                hand_string(dealer_hand),
+                dealer_hand_string,
                 player_name,
-                hand_string(players_hand),
+                player_hand_string,
                 player_name
             )
         elif player_sum > dealer_sum:
-            self._reset()
             return "Dealer has: %s. %s has: %s. %s wins!" % (
-                hand_string(dealer_hand),
+                dealer_hand_string,
                 player_name,
-                hand_string(players_hand),
+                player_hand_string,
                 player_name
             )
         elif player_sum == dealer_sum:
-            self._reset()
             return "Dealer has: %s. %s has: %s. %s ties!" % (
-                hand_string(dealer_hand),
+                dealer_hand_string,
                 player_name,
-                hand_string(players_hand),
+                player_hand_string,
                 player_name
             )
         else:
-            self._reset()
             return "Dealer has: %s. %s has: %s. %s loses!" % (
-                hand_string(dealer_hand),
+                dealer_hand_string,
                 player_name,
-                hand_string(players_hand),
+                player_hand_string,
                 player_name
             )
