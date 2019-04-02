@@ -1,5 +1,4 @@
 from global_store import GLOBAL_STORE
-from services.endgame_service import EndgameService
 from models.card import Card
 from models.deck import Deck
 import pytest
