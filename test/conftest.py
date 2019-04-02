@@ -1,5 +1,4 @@
 from global_store import GLOBAL_STORE
-from services.endgame_service import EndgameService
 from models.card import Card
 from models.deck import Deck
 import pytest
@@ -45,12 +44,6 @@ def winning_hand():
 @pytest.fixture
 def global_store():
     return GLOBAL_STORE
-
-
-@pytest.fixture
-def endgame_service_fixture():
-    _setup_default_user_data()
-    return EndgameService("fake_id")
 
 
 def _setup_default_user_data():
