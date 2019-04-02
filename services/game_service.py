@@ -1,29 +1,52 @@
-from models.deck import Deck
+from utils.hand_util import hand_string
 
 
 class GameService:
     def __init__(self, user_data):
-        # TODO put deck in user_data
-        self.deck = Deck().shuffle()
         self.user_data = user_data
 
+    def deck(self):
+        return self.user_data["deck"]
+
+    def hand(self):
+        return self.user_data["hand"]
+
     def play(self):
-        if len(self.user_data["hand"]) == 0:
-            self.user_data["hand"] = []
-            self.user_data["hand"].append(self.deck.deal())
-            self.user_data["hand"].append(self.deck.deal())
-            return self._hand_to_string()
+        if len(self.hand()) == 0:
+            self.hand().append(self.deck().deal())
+            self.hand().append(self.deck().deal())
+
+            # TODO need to rethink this logic
+            # I think the reset messed this up. Need a better way to reset.
+            if len(self.user_data["dealer_hand"]) == 0:
+                self.user_data["dealer_hand"].append(self.deck().deal())
+                self.user_data["dealer_hand"].append(self.deck().deal())
+
+            return "Dealer's hand is: %s and :question:. %s's hand is %s" % (
+                    self.user_data["dealer_hand"][0],
+                    self.user_data["username"],
+                    hand_string(self.hand())
+                )
         else:
-            self.user_data["hand"].append(self.deck.deal())
+            self.hand().append(self.deck().deal())
             total_value = 0
-            for card in self.user_data["hand"]:
+            for card in self.hand():
                 total_value += card.value()
             if total_value == 21:
-                return "Black Jack You Win % s" % (self._hand_to_string())
+                result = hand_string(self.hand())
+                # resetting
+                self.user_data["hand"] = []
+                self.user_data["dealer_hand"] = []
+                return "21: %s Wins! % s" % (self.user_data["username"], result)
             elif total_value > 21:
-                return "You lose % s" % (self._hand_to_string())
+                result = hand_string(self.hand())
+                self.user_data["hand"] = []
+                self.user_data["dealer_hand"] = []
+                return "BUSTED!: %s. %s Lost." % (
+                    result, self.user_data["username"])
             else:
-                return "Your hand is %s" % (self._hand_to_string())
-
-    def _hand_to_string(self):
-        return " ".join(map(lambda x: str(x), self.user_data["hand"]))
+                return "Dealer's hand is: %s and :question:. %s's hand is %s" % (
+                        self.user_data["dealer_hand"][0],
+                        self.user_data["username"],
+                        hand_string(self.hand())
+                    )

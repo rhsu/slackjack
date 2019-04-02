@@ -36,7 +36,6 @@ def parse_bot_commands(slack_events):
     for event in slack_events:
         if event["type"] == "message" and "subtype" not in event:
             if event["text"] == "register":
-                # from pdb import set_trace; set_trace()
                 user_id = event["user"]
                 # check if global_var contains the user
                 if user_id in global_var:
@@ -56,7 +55,6 @@ def parse_bot_commands(slack_events):
                         text="OK. I registered you."
                     )
             elif event["text"] == "play":
-                # from pdb import set_trace; set_trace()
                 user_id = event["user"]
                 if user_id not in global_var:
                     slack_client.api_call(

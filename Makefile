@@ -4,10 +4,13 @@ run:
 debug:
 	python starterbot.py
 
-clean:
+test:
+	pytest test/
+
+uninstall:
 	pip uninstall -y -r requirements.txt 
 
 install:
 	pip install -r requirements.txt
 
-PHONY: run clean install
+.PHONY: run install uninstall debug test
