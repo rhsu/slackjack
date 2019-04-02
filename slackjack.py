@@ -1,12 +1,13 @@
-import os
-import time
-import re
-from slackclient import SlackClient
-import logging
 from dotenv import load_dotenv
 from game_controller import GameController
+from slackclient import SlackClient
 from utils.default_user_util import load_default_users
-
+import logging
+import os
+import re
+import sys
+import time
+import traceback
 
 # load .env variables
 load_dotenv()
@@ -96,8 +97,11 @@ if __name__ == "__main__":
                 if command:
                     handle_command(command, channel)
                 time.sleep(RTM_READ_DELAY)
-            except Exception as e:
-                print("error occurred: %s %s" % (e, type(e)))
-
+            except Exception:
+                exc_type, exc_value, exc_traceback = sys.exc_info()
+                print("\n")
+                print("error!")
+                traceback.print_exception(exc_type, exc_value, exc_traceback,
+                                          limit=10, file=sys.stdout)
     else:
         print("Connection failed. Exception traceback printed above.")

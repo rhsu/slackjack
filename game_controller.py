@@ -13,7 +13,7 @@ class GameController:
         if user_id in GLOBAL_STORE:
             self.game_service = GameService(GLOBAL_STORE[user_id])
             self.dealer_service = DealerService(GLOBAL_STORE[user_id])
-            self.dealer_service.init_dealer()
+            self.endgame_service = EndgameService(user_id, self.dealer_service)
 
     def parse_command(self, command):
         command = command.lower()
@@ -48,6 +48,5 @@ class GameController:
         elif command.startswith("hit") or command.startswith("play"):
             return self.game_service.play()
         elif command.startswith("stay") or command.startswith("stand"):
-            endgame = EndgameService(self.user_id)
-            return endgame.determine()
+            return self.endgame_service.determine()
         return message
