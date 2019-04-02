@@ -1,8 +1,7 @@
 class BettingService:
-    def __init__(self, userdata, gameservice, bet):
+    def __init__(self, userdata, gameservice):
         self.userdata = userdata
         self.gameservice = gameservice
-        self.bet = bet
         pass
 
     def money(self):
@@ -15,10 +14,11 @@ class BettingService:
     # check if bet is a number
     # check if bet is valid
     # let's start with betting as a decimal precision 2
-    def bet(self):
-        if self.bet > self.money:
+    def bet(self, amount):
+        if amount > self.money:
             return "%s: Not enough money. Can't bet %s" % (
-                self.username, self.money)
+                self.username, amount)
 
-        self.userdata["money"] - self.bet
-        return "%s: has bet %s" % (self.username, self.money)
+        self.userdata["money"] - amount
+        result = self.gameservice.play()
+        return "%s: has bet %s. %s" % (self.username(), amount, result)

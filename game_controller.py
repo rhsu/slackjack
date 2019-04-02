@@ -4,6 +4,7 @@ from services.endgame_service import EndgameService
 from services.game_service import GameService
 from services.rebrand_service import RebrandService
 from services.register_service import RegisterService
+from services.betting_service import BettingService
 
 
 class GameController:
@@ -13,7 +14,10 @@ class GameController:
         if user_id in GLOBAL_STORE:
             self.game_service = GameService(GLOBAL_STORE[user_id])
             self.dealer_service = DealerService(GLOBAL_STORE[user_id])
-            self.endgame_service = EndgameService(user_id, self.dealer_service)
+            self.endgame_service = EndgameService(
+                GLOBAL_STORE[user_id], self.dealer_service)
+            self.betting_service = BettingService(
+                GLOBAL_STORE[user_id], self.game_service)
 
     def parse_command(self, command):
         command = command.lower()
@@ -43,8 +47,9 @@ class GameController:
                     bet_amount = int(parse[1])
                 except ValueError:
                     return "invalid bet amount"
-                GLOBAL_STORE[self.user_id]["money"] += bet_amount
-                message = "A :spades: J :heart: BlackJack! %s Wins! Total: %s" % (GLOBAL_STORE[self.user_id]["username"], GLOBAL_STORE[self.user_id]["money"])
+                return self.betting_service.bet(bet_amount)
+                # GLOBAL_STORE[self.user_id]["money"] += bet_amount
+                # message = "A :spades: J :heart: BlackJack! %s Wins! Total: %s" % (GLOBAL_STORE[self.user_id]["username"], GLOBAL_STORE[self.user_id]["money"])
         elif command.startswith("hit") or command.startswith("play"):
             return self.game_service.play()
         elif command.startswith("stay") or command.startswith("stand"):

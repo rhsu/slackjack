@@ -37,7 +37,8 @@ class GameService:
                 # resetting
                 self.user_data["hand"] = []
                 self.user_data["dealer_hand"] = []
-                return "21: %s Wins! % s" % (self.user_data["username"], result)
+                return "21: %s Wins! % s" % (
+                    self.user_data["username"], result)
             elif total_value > 21:
                 result = hand_string(self.hand())
                 self.user_data["hand"] = []
