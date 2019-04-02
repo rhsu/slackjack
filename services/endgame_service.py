@@ -1,6 +1,5 @@
 from global_store import GLOBAL_STORE
 from utils.hand_util import hand_sum, hand_string
-# from services.dealer_service import DealerService
 
 
 class EndgameService:
@@ -20,13 +19,11 @@ class EndgameService:
         player_hand_string = hand_string(players_hand)
         if not len(players_hand):
             return "Can't stand. Must `play` or `hit` first"
-        # TODO pass this in as a parameter
-        # dealer_service = DealerService(self.user_data)
+
         dealer_hand = self.dealer_service.play()
         dealer_hand_string = hand_string(dealer_hand)
         dealer_sum = hand_sum(dealer_hand)
-        # TODO what happens if both players get 21? for now Im giving it
-        # to the player
+
         self._reset()
         if dealer_sum > 21:
             return "Dealer has: %s. %s has: %s. Dealer busted. %s wins!" % (
@@ -49,7 +46,7 @@ class EndgameService:
                 player_hand_string,
                 player_name
             )
-        else:
+        else:  # also implicitly handles the case where both players have 21
             return "Dealer has: %s. %s has: %s. %s loses!" % (
                 dealer_hand_string,
                 player_name,
