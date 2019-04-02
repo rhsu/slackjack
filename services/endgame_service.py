@@ -1,10 +1,9 @@
-from global_store import GLOBAL_STORE
 from utils.hand_util import hand_sum, hand_string
 
 
 class EndgameService:
-    def __init__(self, user_id, dealer_service):
-        self.user_data = GLOBAL_STORE[user_id]
+    def __init__(self, user_data, dealer_service):
+        self.user_data = user_data
         self.dealer_service = dealer_service
 
     def _reset(self):
@@ -18,7 +17,7 @@ class EndgameService:
         player_hand_string = hand_string(players_hand)
         if not len(players_hand):
             return "Can't stand. Must `play` or `hit` first"
-
+        from pdb import set_trace; set_trace()
         dealer_hand = self.dealer_service.play()
         dealer_hand_string = hand_string(dealer_hand)
         dealer_sum = hand_sum(dealer_hand)
