@@ -37,14 +37,14 @@ class GameService:
                 # resetting
                 self.user_data["hand"] = []
                 self.user_data["dealer_hand"] = []
-                return "21: %s Wins! % s" % (
-                    self.user_data["username"], result)
+                return "21: %s Wins %s dollars! % s" % (
+                    self.user_data["username"], self.user_data["bet"], result)
             elif total_value > 21:
                 result = hand_string(self.hand())
                 self.user_data["hand"] = []
                 self.user_data["dealer_hand"] = []
-                return "BUSTED! %s. %s Lost." % (
-                    result, self.user_data["username"])
+                return "BUSTED! %s. %s Loses %s dollars!" % (
+                    result, self.user_data["username"], self.user_data["bet"])
             else:
                 return "Dealer's hand is: %s and :question:. %s's hand is %s" % (
                         self.user_data["dealer_hand"][0],

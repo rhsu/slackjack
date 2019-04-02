@@ -23,18 +23,20 @@ class EndgameService:
 
         self._reset()
         if dealer_sum > 21:
-            return "Dealer has: %s. %s has: %s. Dealer busted. %s wins!" % (
+            return "Dealer has: %s. %s has: %s. Dealer busted. %s wins %s dollars!" % (
                 dealer_hand_string,
                 player_name,
                 player_hand_string,
-                player_name
+                player_name,
+                self.user_data["bet"]
             )
         elif player_sum > dealer_sum:
-            return "Dealer has: %s. %s has: %s. %s wins!" % (
+            return "Dealer has: %s. %s has: %s. %s wins %s dollars!" % (
                 dealer_hand_string,
                 player_name,
                 player_hand_string,
-                player_name
+                player_name,
+                self.user_data["bet"]
             )
         elif player_sum == dealer_sum:
             return "Dealer has: %s. %s has: %s. %s ties!" % (
@@ -44,9 +46,10 @@ class EndgameService:
                 player_name
             )
         else:
-            return "Dealer has: %s. %s has: %s. %s loses!" % (
+            return "Dealer has: %s. %s has: %s. %s loses %s dollars!" % (
                 dealer_hand_string,
                 player_name,
                 player_hand_string,
-                player_name
+                player_name,
+                self.user_data["bet"]
             )
