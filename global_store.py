@@ -1,1 +1,2 @@
 GLOBAL_STORE = {}
+ROULETE_QUEUE = []
