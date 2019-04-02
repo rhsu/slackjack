@@ -29,11 +29,20 @@ def test_dealer_loses(default_user_data, losing_hand, winning_hand):
     assert result == "Dealer has: 2 :hearts: 2 :spades. someone has: 9 "\
                      ":clubs: 2 :clubs: 10 :clubs:. someone wins!"
 
-# def test_cant_stand(endgame_service_fixture, default_user_data):
-#     default_user_data["hand"] = []
-#     result = endgame_service_fixture.determine()
-#     assert result == "Can't stand. Must `play` or `hit` first"
 
-# def test_both_have_21():
-#     from pdb import set_trace; set_trace()
-#     pass
+def test_cant_stand(default_user_data, winning_hand):
+    mock_dealer_service = MockDealerService(winning_hand)
+    default_user_data["hand"] = []
+    endgame_service = EndgameService(default_user_data, mock_dealer_service)
+    result = endgame_service.determine()
+    assert result == "Can't stand. Must `play` or `hit` first"
+
+
+def test_both_have_21(default_user_data, winning_hand):
+    mock_dealer_service = MockDealerService(winning_hand)
+    default_user_data["hand"] = winning_hand
+    endgame_service = EndgameService(default_user_data, mock_dealer_service)
+    result = endgame_service.determine()
+    assert result == "Dealer has: 9 :clubs: 2 :clubs: 10 :clubs:. someone "\
+                     "has: 9 :clubs: 2 :clubs: 10 :clubs:. someone ties!"
+    pass

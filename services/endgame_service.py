@@ -43,7 +43,7 @@ class EndgameService:
                 player_hand_string,
                 player_name
             )
-        else:  # also implicitly handles the case where both players have 21
+        else:
             return "Dealer has: %s. %s has: %s. %s loses!" % (
                 dealer_hand_string,
                 player_name,
