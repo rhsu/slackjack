@@ -15,6 +15,7 @@ class EndgameService:
     def determine(self):
         players_hand = self.user_data["hand"]
         player_sum = hand_sum(players_hand)
+        player_name = self.user_data["username"]
         if not len(players_hand):
             return "Can't stand. Must `play` or `hit` first"
         # TODO pass this in as a parameter
@@ -28,31 +29,31 @@ class EndgameService:
             self._reset()
             return "Dealer has: %s. %s has: %s. Dealer busted. %s wins!" % (
                 hand_string(dealer_hand),
-                self.user_data["username"],
+                player_name,
                 hand_string(players_hand),
-                self.user_data["username"]
+                player_name
             )
         elif player_sum > dealer_sum:
             self._reset()
             return "Dealer has: %s. %s has: %s. %s wins!" % (
                 hand_string(dealer_hand),
-                self.user_data["username"],
+                player_name,
                 hand_string(players_hand),
-                self.user_data["username"]
+                player_name
             )
         elif player_sum == dealer_sum:
             self._reset()
             return "Dealer has: %s. %s has: %s. %s ties!" % (
                 hand_string(dealer_hand),
-                self.user_data["username"],
+                player_name,
                 hand_string(players_hand),
-                self.user_data["username"]
+                player_name
             )
         else:
             self._reset()
             return "Dealer has: %s. %s has: %s. %s loses!" % (
                 hand_string(dealer_hand),
-                self.user_data["username"],
+                player_name,
                 hand_string(players_hand),
-                self.user_data["username"]
+                player_name
             )
