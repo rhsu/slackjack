@@ -47,12 +47,6 @@ def global_store():
     return GLOBAL_STORE
 
 
-@pytest.fixture
-def endgame_service_fixture():
-    _setup_default_user_data()
-    return EndgameService("fake_id")
-
-
 def _setup_default_user_data():
     if "fake_id" in GLOBAL_STORE:
         return GLOBAL_STORE["fake_id"]
@@ -64,14 +58,3 @@ def _setup_default_user_data():
     }
     GLOBAL_STORE["fake_id"] = user_data
     return user_data
-
-
-# @pytest.fixture
-# def mock_dealer_service():
-#     class MockDealerService:
-#         def __init__(self, dealer_hand):
-#             self.dealer_hand = dealer_hand
-
-#         def play(self):
-#             pass
-#     return MockDealerService()
