@@ -4,7 +4,6 @@ from utils.hand_util import hand_sum, hand_string
 
 class EndgameService:
     def __init__(self, user_id, dealer_service):
-        # self.user_id = user_id
         self.user_data = GLOBAL_STORE[user_id]
         self.dealer_service = dealer_service
 
