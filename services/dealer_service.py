@@ -4,6 +4,7 @@ from utils.hand_util import hand_sum
 class DealerService:
     def __init__(self, user_data):
         self.user_data = user_data
+        self._init_dealer()
 
     def dealer_hand(self):
         return self.user_data["dealer_hand"]
@@ -13,7 +14,7 @@ class DealerService:
 
     # TODO think about this one. Maybe this should just go into the constructor
     #      I think a new dealer_service is initialized every time anyways
-    def init_dealer(self):
+    def _init_dealer(self):
         if (len(self.dealer_hand()) != 0):
             print("Initializing dealer but dealer didn't exist")
             return

@@ -42,7 +42,7 @@ class GameService:
                 result = hand_string(self.hand())
                 self.user_data["hand"] = []
                 self.user_data["dealer_hand"] = []
-                return "BUSTED!: %s. %s Lost." % (
+                return "BUSTED! %s. %s Lost." % (
                     result, self.user_data["username"])
             else:
                 return "Dealer's hand is: %s and :question:. %s's hand is %s" % (
