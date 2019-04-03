@@ -68,4 +68,10 @@ class GameController:
             return self.game_service.play()
         elif command.startswith("stay") or command.startswith("stand"):
             return self.endgame_service.determine()
+        elif command.startswith("rebuy"):
+            if GLOBAL_STORE[self.user_id]["money"] == 0:
+                GLOBAL_STORE[self.user_id]["money"] = 100
+                return "rebought"
+            else:
+                return "you still have money"
         return message

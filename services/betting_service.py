@@ -15,6 +15,8 @@ class BettingService:
     # check if bet is valid
     # let's start with betting as a decimal precision 2
     def bet(self, amount):
+        if self.money() == 0:
+            return "%s: Can't play. Not enough money."
         if amount > self.money():
             return "%s: Not enough money. Can't bet %s" % (
                 self.username(), amount)
