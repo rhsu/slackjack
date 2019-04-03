@@ -1,5 +1,5 @@
 from dotenv import load_dotenv
-from game_controller import GameController
+from controllers.game_controller import GameController
 from slackclient import SlackClient
 from utils.default_user_util import load_default_users
 import logging
