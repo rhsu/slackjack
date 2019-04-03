@@ -35,10 +35,22 @@ class GameController:
             if len(parse) < 2:
                 return "must supply a username with rebrand"
             return RebrandService(self.user_id, parse[1]).rebrand()
+        elif command.startswith("status"):
+            # TODO need to check if user is registered
+            # TODO maybe be able to check other people's statuses
+            return "%s has %s dollars" % (
+                GLOBAL_STORE[self.user_id]["username"],
+                GLOBAL_STORE[self.user_id]["money"])
         elif command.startswith("bet"):
             # check if user exists
             if self.user_id not in GLOBAL_STORE:
                 return "You are not registered"
+
+            # TODO move this to service later
+            if GLOBAL_STORE[self.user_id]["bet"] != 0:
+                return "%s has already placed a bet. try `hit` or `stay`" % (
+                    GLOBAL_STORE[self.user_id]["username"]
+                )
             parse = command.split(" ")
             if len(parse) < 2:
                 message = "must supply an amount to bet"
@@ -46,6 +58,8 @@ class GameController:
                 try:
                     bet_amount = int(parse[1])
                 except ValueError:
+                    return "invalid bet amount"
+                if bet_amount <= 0:
                     return "invalid bet amount"
                 return self.betting_service.bet(bet_amount)
                 # GLOBAL_STORE[self.user_id]["money"] += bet_amount

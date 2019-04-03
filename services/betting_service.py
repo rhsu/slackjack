@@ -15,11 +15,10 @@ class BettingService:
     # check if bet is valid
     # let's start with betting as a decimal precision 2
     def bet(self, amount):
-        if amount > self.money:
+        if amount > self.money():
             return "%s: Not enough money. Can't bet %s" % (
-                self.username, amount)
+                self.username(), amount)
 
-        # self.userdata["money"] - amount
         self.userdata["bet"] = amount
         result = self.gameservice.play()
         return "%s: has bet %s. %s" % (self.username(), amount, result)
