@@ -15,7 +15,8 @@ class GameController:
         if user_id in GLOBAL_STORE:
             self.game_service = GameService(GLOBAL_STORE[user_id])
             self.dealer_service = DealerService(GLOBAL_STORE[user_id])
-            self.endgame_service = EndgameService(user_id, self.dealer_service)
+            self.endgame_service = EndgameService(
+                GLOBAL_STORE[user_id], self.dealer_service)
 
     def parse_command(self, command):
         command = command.lower()
