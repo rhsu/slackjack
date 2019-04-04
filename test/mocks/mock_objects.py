@@ -4,3 +4,13 @@ class MockDealerService:
 
     def play(self):
         return self.dealer_hand
+
+
+class MockGameService:
+    def play(self):
+        return "MOCK"
+
+
+class MockEndgameService:
+    def determine(self):
+        return "EndGameService"
