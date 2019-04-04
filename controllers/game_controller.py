@@ -1,10 +1,10 @@
 from global_store import GLOBAL_STORE
+from services.betting_service import BettingService
 from services.dealer_service import DealerService
 from services.endgame_service import EndgameService
 from services.game_service import GameService
 from services.rebrand_service import RebrandService
 from services.register_service import RegisterService
-from services.betting_service import BettingService
 
 
 class GameController:
