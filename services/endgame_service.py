@@ -9,7 +9,6 @@ class EndgameService:
     def _reset(self):
         self.user_data["hand"] = []
         self.user_data["dealer_hand"] = []
-        # self.user_data["bet"] = 0
 
     def determine(self):
         players_hand = self.user_data["hand"]
@@ -50,7 +49,6 @@ class EndgameService:
                 bet_amount
             )
         elif player_sum == dealer_sum:
-            # self.user_data["money"] += self.user_data["bet"]
             self.user_data["bet"] = 0
             return "Dealer has: %s. %s has: %s. %s ties!" % (
                 dealer_hand_string,

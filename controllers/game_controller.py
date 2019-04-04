@@ -1,10 +1,10 @@
 from global_store import GLOBAL_STORE
+from services.betting_service import BettingService
 from services.dealer_service import DealerService
 from services.endgame_service import EndgameService
 from services.game_service import GameService
 from services.rebrand_service import RebrandService
 from services.register_service import RegisterService
-from services.betting_service import BettingService
 
 
 class GameController:
@@ -47,24 +47,20 @@ class GameController:
             if self.user_id not in GLOBAL_STORE:
                 return "You are not registered"
 
-            # TODO move this to service later
-            if GLOBAL_STORE[self.user_id]["bet"] != 0:
-                return "%s has already placed a bet. try `hit` or `stay`" % (
-                    GLOBAL_STORE[self.user_id]["username"]
-                )
+            # check if the user supplied a bet amount
             parse = command.split(" ")
             if len(parse) < 2:
-                message = "must supply an amount to bet"
-            else:
-                try:
-                    bet_amount = int(parse[1])
-                except ValueError:
-                    return "invalid bet amount"
-                if bet_amount <= 0:
-                    return "invalid bet amount"
-                return self.betting_service.bet(bet_amount)
-                # GLOBAL_STORE[self.user_id]["money"] += bet_amount
-                # message = "A :spades: J :heart: BlackJack! %s Wins! Total: %s" % (GLOBAL_STORE[self.user_id]["username"], GLOBAL_STORE[self.user_id]["money"])
+                return "must supply an amount to bet"
+
+            # check if that amount is valid
+            try:
+                bet_amount = int(parse[1])
+            except ValueError:
+                return "invalid bet amount"
+            if bet_amount <= 0:
+                return "invalid bet amount"
+
+            return self.betting_service.place_bet(bet_amount)
         elif command.startswith("hit") or command.startswith("play"):
             return self.game_service.play()
         elif command.startswith("stay") or command.startswith("stand"):
