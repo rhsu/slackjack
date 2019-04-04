@@ -2,8 +2,9 @@ from utils.hand_util import hand_string
 
 
 class GameService:
-    def __init__(self, user_data):
+    def __init__(self, user_data, endgame_service):
         self.user_data = user_data
+        self.endgame_service = endgame_service
 
     def deck(self):
         return self.user_data["deck"]
@@ -43,23 +44,24 @@ class GameService:
             total_value = 0
             for card in self.hand():
                 total_value += card.value()
-            if total_value == 21:
-                result = hand_string(self.hand())
-                # resetting
-                self.user_data["hand"] = []
-                self.user_data["dealer_hand"] = []
-                self.user_data["money"] += self.user_data["bet"]
-                self.user_data["bet"] = 0
-                return "21: %s Wins %s dollars! % s" % (
-                    self.user_data["username"], self.user_data["bet"], result)
-            elif total_value > 21:
-                result = hand_string(self.hand())
-                self.user_data["hand"] = []
-                self.user_data["dealer_hand"] = []
-                self.user_data["money"] -= self.user_data["bet"]
-                self.user_data["bet"] = 0
-                return "BUSTED! %s. %s Loses %s dollars!" % (
-                    result, self.user_data["username"], self.user_data["bet"])
+            # if total_value == 21:
+            #     result = hand_string(self.hand())
+            #     # resetting
+            #     self.user_data["hand"] = []
+            #     self.user_data["dealer_hand"] = []
+            #     self.user_data["money"] += self.user_data["bet"]
+            #     self.user_data["bet"] = 0
+            #     return "21: %s Wins %s dollars! % s" % (
+            #         self.user_data["username"], self.user_data["bet"], result)
+            if total_value > 21:
+                return self.endgame_service.determine()
+                # result = hand_string(self.hand())
+                # self.user_data["hand"] = []
+                # self.user_data["dealer_hand"] = []
+                # self.user_data["money"] -= self.user_data["bet"]
+                # self.user_data["bet"] = 0
+                # return "BUSTED! %s. %s Loses %s dollars!" % (
+                #     result, self.user_data["username"], self.user_data["bet"])
             else:
                 return "Dealer's hand is: %s and :question:. %s's hand is %s" % (
                         self.user_data["dealer_hand"][0],
