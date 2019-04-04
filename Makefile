@@ -13,4 +13,4 @@ uninstall:
 install:
 	pip install -r requirements.txt
 
-.PHONY: run install uninstall debug test test-a
+.PHONY: run install uninstall debug test
