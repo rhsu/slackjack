@@ -12,10 +12,11 @@ class GameController:
         self.user_id = user_id
         # TODO maybe make a different controller for registering?
         if user_id in GLOBAL_STORE:
-            self.game_service = GameService(GLOBAL_STORE[user_id])
             self.dealer_service = DealerService(GLOBAL_STORE[user_id])
             self.endgame_service = EndgameService(
                 GLOBAL_STORE[user_id], self.dealer_service)
+            self.game_service = GameService(
+                GLOBAL_STORE[user_id], self.endgame_service)
             self.betting_service = BettingService(
                 GLOBAL_STORE[user_id], self.game_service)
 
