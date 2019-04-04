@@ -9,7 +9,6 @@ class EndgameService:
     def _reset(self):
         self.user_data["hand"] = []
         self.user_data["dealer_hand"] = []
-        # self.user_data["bet"] = 0
 
     def determine(self):
         players_hand = self.user_data["hand"]
