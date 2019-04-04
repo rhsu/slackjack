@@ -54,6 +54,8 @@ def _setup_default_user_data():
         "hand": [],
         "deck": Deck(),
         "dealer_hand": [],
+        "bet": 100,
+        "money": 100,
     }
     GLOBAL_STORE["fake_id"] = user_data
     return user_data
