@@ -14,7 +14,7 @@ class BettingService:
 
     def place_bet(self, amount):
         if self.money() == 0:
-            return "%s: Can't play. Not enough money."
+            return "%s: Can't play. Not enough money." % self.username()
         if amount > self.money():
             return "%s: Not enough money. Can't bet %s" % (
                 self.username(), amount)
