@@ -62,8 +62,6 @@ class GameController:
                 if bet_amount <= 0:
                     return "invalid bet amount"
                 return self.betting_service.bet(bet_amount)
-                # GLOBAL_STORE[self.user_id]["money"] += bet_amount
-                # message = "A :spades: J :heart: BlackJack! %s Wins! Total: %s" % (GLOBAL_STORE[self.user_id]["username"], GLOBAL_STORE[self.user_id]["money"])
         elif command.startswith("hit") or command.startswith("play"):
             return self.game_service.play()
         elif command.startswith("stay") or command.startswith("stand"):
