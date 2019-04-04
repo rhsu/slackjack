@@ -14,14 +14,14 @@ def test_place_bet_when_not_enough_money(default_user_data):
     game_service = MockGameService()
     service = BettingService(default_user_data, game_service)
     result = service.place_bet(5000)
-    assert result == "someone: Not enough money. Can't bet 5000"
+    assert result == "someone: Can't bet 5000. Not enough money."
 
 
 def test_place_bet_when_bet_exists(default_user_data):
     game_service = MockGameService()
     service = BettingService(default_user_data, game_service)
     result = service.place_bet(1)
-    assert result == "someone has already placed a bet. try `hit` or `stay`"
+    assert result == "someone: Bet already placed. Try `hit` or `stay`"
 
 
 def test_place_bet_when_successful(default_user_data):
@@ -29,4 +29,4 @@ def test_place_bet_when_successful(default_user_data):
     default_user_data["bet"] = 0
     service = BettingService(default_user_data, game_service)
     result = service.place_bet(1)
-    assert result == "someone: has bet 1. MOCK"
+    assert result == "someone has bet 1. MOCK"

@@ -16,13 +16,13 @@ class BettingService:
         if self.money() == 0:
             return "%s: Can't play. Not enough money." % self.username()
         if amount > self.money():
-            return "%s: Not enough money. Can't bet %s" % (
+            return "%s: Can't bet %s. Not enough money." % (
                 self.username(), amount)
         if self.bet() != 0:
-            return "%s has already placed a bet. try `hit` or `stay`" % (
+            return "%s: Bet already placed. Try `hit` or `stay`" % (
                 self.username()
             )
 
         self.userdata["bet"] = amount
         result = self.gameservice.play()
-        return "%s: has bet %s. %s" % (self.username(), amount, result)
+        return "%s has bet %s. %s" % (self.username(), amount, result)
