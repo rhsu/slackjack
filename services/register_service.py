@@ -17,6 +17,7 @@ class RegisterService:
                 "money": 100,
                 "hand": [],
                 "deck": Deck(),
-                "dealer_hand": []
+                "dealer_hand": [],
+                "bet": 0,
             }
             return "OK. I registered %s" % self.user_name
