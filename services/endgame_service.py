@@ -44,7 +44,6 @@ class EndgameService:
                 bet_amount
             )
         elif player_sum == dealer_sum:
-            # self.user_data["money"] += self.user_data["bet"]
             self.user_data["bet"] = 0
             return "Dealer has: %s. %s has: %s. %s ties!" % (
                 dealer_hand_string,
