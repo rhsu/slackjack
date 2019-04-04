@@ -11,7 +11,18 @@ class GameService:
     def hand(self):
         return self.user_data["hand"]
 
+    def username(self):
+        return self.user_data["username"]
+
+    def money(self):
+        return self.user_data["money"]
+
     def play(self):
+        if self.user_data["money"] == 0:
+            return "%s: Can't play. YOU HAVE NO MONEY" % self.username()
+        if self.user_data["bet"] == 0:
+            return "%s: Can't play. Must `bet` first" % self.username()
+
         if len(self.hand()) == 0:
             self.hand().append(self.deck().deal())
             self.hand().append(self.deck().deal())
@@ -37,13 +48,18 @@ class GameService:
                 # resetting
                 self.user_data["hand"] = []
                 self.user_data["dealer_hand"] = []
-                return "21: %s Wins! % s" % (self.user_data["username"], result)
+                self.user_data["money"] += self.user_data["bet"]
+                self.user_data["bet"] = 0
+                return "21: %s Wins %s dollars! % s" % (
+                    self.user_data["username"], self.user_data["bet"], result)
             elif total_value > 21:
                 result = hand_string(self.hand())
                 self.user_data["hand"] = []
                 self.user_data["dealer_hand"] = []
-                return "BUSTED! %s. %s Lost." % (
-                    result, self.user_data["username"])
+                self.user_data["money"] -= self.user_data["bet"]
+                self.user_data["bet"] = 0
+                return "BUSTED! %s. %s Loses %s dollars!" % (
+                    result, self.user_data["username"], self.user_data["bet"])
             else:
                 return "Dealer's hand is: %s and :question:. %s's hand is %s" % (
                         self.user_data["dealer_hand"][0],
