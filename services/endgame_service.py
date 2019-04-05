@@ -31,13 +31,14 @@ class EndgameService:
         if dealer_sum > 21:
             self.user_data["money"] += self.user_data["bet"]
             self.user_data["bet"] = 0
-            return "Dealer has: %s. %s has: %s. Dealer busted. %s wins %s dollars!" % (
-                dealer_hand_string,
-                player_name,
-                player_hand_string,
-                player_name,
-                bet_amount
-            )
+            return "Dealer has: %s. %s has: %s. Dealer busted. %s wins "\
+                   "%s dollars!" % (
+                        dealer_hand_string,
+                        player_name,
+                        player_hand_string,
+                        player_name,
+                        bet_amount
+                    )
         elif player_sum > dealer_sum:
             self.user_data["money"] += self.user_data["bet"]
             self.user_data["bet"] = 0

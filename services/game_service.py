@@ -47,8 +47,9 @@ class GameService:
             if total_value > 21:
                 return self.endgame_service.determine()
             else:
-                return "Dealer's hand is: %s and :question:. %s's hand is %s" % (
-                        self.user_data["dealer_hand"][0],
-                        self.user_data["username"],
-                        hand_string(self.hand())
-                    )
+                return "Dealer's hand is: %s and :question:. %s's hand "\
+                       "is %s" % (
+                            self.user_data["dealer_hand"][0],
+                            self.user_data["username"],
+                            hand_string(self.hand())
+                            )
