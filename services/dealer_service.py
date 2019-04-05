@@ -1,16 +1,11 @@
+from services.service import Service
 from utils.hand_util import hand_sum
 
 
-class DealerService:
+class DealerService(Service):
     def __init__(self, user_data):
-        self.user_data = user_data
+        Service.__init__(self, user_data)
         self._init_dealer()
-
-    def dealer_hand(self):
-        return self.user_data["dealer_hand"]
-
-    def deck(self):
-        return self.user_data["deck"]
 
     # TODO think about this one. Maybe this should just go into the constructor
     #      I think a new dealer_service is initialized every time anyways
