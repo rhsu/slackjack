@@ -45,4 +45,3 @@ def test_both_have_21(default_user_data, winning_hand):
     result = endgame_service.determine()
     assert result == "Dealer has: 9 :clubs: 2 :clubs: 10 :clubs:. someone "\
                      "has: 9 :clubs: 2 :clubs: 10 :clubs:. someone ties!"
-    pass
