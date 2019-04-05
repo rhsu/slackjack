@@ -16,27 +16,40 @@ class EndgameService:
         player_name = self.user_data["username"]
         player_hand_string = hand_string(players_hand)
         if not len(players_hand):
-            return "Can't stand. Must `play` or `hit` first"
+            return "Can't stand. Must `bet` first"
         dealer_hand = self.dealer_service.play()
         dealer_hand_string = hand_string(dealer_hand)
         dealer_sum = hand_sum(dealer_hand)
+        bet_amount = self.user_data["bet"]
 
         self._reset()
+        if player_sum > 21:
+            self.user_data["money"] -= self.user_data["bet"]
+            self.user_data["bet"] = 0
+            return "%s busted: %s and loses %s dollars" % (
+                player_name, player_hand_string, bet_amount)
         if dealer_sum > 21:
-            return "Dealer has: %s. %s has: %s. Dealer busted. %s wins!" % (
+            self.user_data["money"] += self.user_data["bet"]
+            self.user_data["bet"] = 0
+            return "Dealer has: %s. %s has: %s. Dealer busted. %s wins %s dollars!" % (
                 dealer_hand_string,
                 player_name,
                 player_hand_string,
-                player_name
+                player_name,
+                bet_amount
             )
         elif player_sum > dealer_sum:
-            return "Dealer has: %s. %s has: %s. %s wins!" % (
+            self.user_data["money"] += self.user_data["bet"]
+            self.user_data["bet"] = 0
+            return "Dealer has: %s. %s has: %s. %s wins %s dollars!" % (
                 dealer_hand_string,
                 player_name,
                 player_hand_string,
-                player_name
+                player_name,
+                bet_amount
             )
         elif player_sum == dealer_sum:
+            self.user_data["bet"] = 0
             return "Dealer has: %s. %s has: %s. %s ties!" % (
                 dealer_hand_string,
                 player_name,
@@ -44,9 +57,12 @@ class EndgameService:
                 player_name
             )
         else:
-            return "Dealer has: %s. %s has: %s. %s loses!" % (
+            self.user_data["money"] -= self.user_data["bet"]
+            self.user_data["bet"] = 0
+            return "Dealer has: %s. %s has: %s. %s loses %s dollars!" % (
                 dealer_hand_string,
                 player_name,
                 player_hand_string,
-                player_name
+                player_name,
+                bet_amount
             )

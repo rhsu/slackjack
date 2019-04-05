@@ -1,4 +1,5 @@
 import random
+from utils.color_util import determine_color
 
 
 class RouletteService():
@@ -11,4 +12,4 @@ class RouletteService():
             return "0"
         if number == 38:
             return "00"
-        return str(number)
+        return str(number), determine_color(number)
