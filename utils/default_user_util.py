@@ -11,12 +11,3 @@ def load_default_users():
     for user in default_users.split(','):
         user_id, username = user.split(':')
         GLOBAL_STORE[user_id.strip()] = UserData(username)
-        # GLOBAL_STORE[user_id.strip()] = {
-        #     # TODO this should be defineed in one place
-        #     "username": username.strip(),
-        #     "money": 100,
-        #     "hand": [],
-        #     "deck": Deck(),
-        #     "dealer_hand": [],
-        #     "bet": 0
-        # }
