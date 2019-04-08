@@ -43,8 +43,8 @@ class GameController:
             # TODO need to check if user is registered
             # TODO maybe be able to check other people's statuses
             return "%s has %s dollars" % (
-                self.user_data["username"],
-                self.user_data["money"])
+                self.user_data.username,
+                self.user_data.money)
         elif command.startswith("bet"):
             # check if user exists
             if self.user_id not in GLOBAL_STORE:
@@ -101,8 +101,8 @@ class GameController:
             del ROULETE_QUEUE[:]
             return ret_val
         elif command.startswith("rebuy"):
-            if self.user_data["money"] == 0:
-                self.user_data["money"] = 100
+            if self.user_data.money == 0:
+                self.user_data.money = 100
                 return "rebought"
             else:
                 return "you still have money"

@@ -7,6 +7,7 @@ class UserData:
         self.dealer_hand = []
         self.deck = Deck()
         self.hand = []
+        self.money = 100
         self.username = username
 
     def reset_hands(self):
