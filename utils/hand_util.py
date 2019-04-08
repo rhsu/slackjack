@@ -3,12 +3,6 @@ def hand_string(hand):
 
 
 def hand_sum(hand):
-    # there can only be 1 ace that is 11
-    # so need to 1 check if has aces, if not then compute simple sum
-
-    # if has aces, then make the first ace an 11 and compute the as simple sum
-    # add the two together
-    # return sum(map(lambda x: x.value(), hand))
     hand_copy = list(hand)
     simple_sum = _simple_sum(hand_copy)
     if _contains_ace(hand_copy):
