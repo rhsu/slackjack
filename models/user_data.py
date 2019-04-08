@@ -8,3 +8,21 @@ class UserData:
         self.deck = Deck()
         self.hand = []
         self.username = username
+
+    def reset_hands(self):
+        self.hand = []
+        self.dealer_hand = []
+
+    def reset_bets(self):
+        self.bet = 0
+
+    # def apply_lost(self):
+    #     self.money -= self.bet()
+    #     self.userdata["bet"] = 0
+    #     pass
+
+    # def apply_win(self):
+    #     pass
+
+    # def apply_tie(self):
+    #     pass
