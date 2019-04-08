@@ -1,7 +1,7 @@
+import pytest
 from global_store import GLOBAL_STORE
 from models.card import Card
-from models.deck import Deck
-import pytest
+from models.user_data import UserData
 
 
 @pytest.fixture(autouse=True)
@@ -13,6 +13,11 @@ def run_around_test():
 @pytest.fixture
 def default_user_data():
     return _setup_default_user_data()
+
+
+@pytest.fixture
+def default_id():
+    return "fake_id"
 
 
 @pytest.fixture
@@ -49,13 +54,8 @@ def global_store():
 def _setup_default_user_data():
     if "fake_id" in GLOBAL_STORE:
         return GLOBAL_STORE["fake_id"]
-    user_data = {
-        "username": "someone",
-        "hand": [],
-        "deck": Deck(),
-        "dealer_hand": [],
-        "bet": 100,
-        "money": 100,
-    }
-    GLOBAL_STORE["fake_id"] = user_data
+    user_data = UserData("someone")
+    user_data.bet = 100
+    user_data.money = 100
+    GLOBAL_STORE["fake_id"] = UserData("someone")
     return user_data

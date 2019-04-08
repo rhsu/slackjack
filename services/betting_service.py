@@ -17,6 +17,6 @@ class BettingService(Service):
                 self.username()
             )
 
-        self.userdata["bet"] = amount
+        self.userdata.bet = amount
         result = self.gameservice.play()
         return "%s has bet %s. %s" % (self.username(), amount, result)
