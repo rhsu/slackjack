@@ -41,6 +41,7 @@ class EndgameService(Service):
                     )
         elif player_sum > dealer_sum:
             self.userdata.money += self.bet()
+            self.userdata.bet = 0
             return "Dealer has: %s. %s has: %s. %s wins %s dollars!" % (
                 dealer_hand_string,
                 self.username(),
@@ -49,6 +50,7 @@ class EndgameService(Service):
                 display_bet,
             )
         elif player_sum == dealer_sum:
+            self.userdata.bet = 0
             return "Dealer has: %s. %s has: %s. %s ties!" % (
                 dealer_hand_string,
                 self.username(),
