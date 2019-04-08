@@ -7,10 +7,6 @@ class EndgameService(Service):
         Service.__init__(self, userdata)
         self.dealer_service = dealer_service
 
-    # def _reset(self):
-    #     self.userdata["hand"] = []
-    #     self.userdata["dealer_hand"] = []
-
     def hand_sum(self):
         return hand_sum(self.hand())
 
@@ -45,7 +41,6 @@ class EndgameService(Service):
                     )
         elif player_sum > dealer_sum:
             self.userdata.money += self.bet()
-            # self.userdata["bet"] = 0
             return "Dealer has: %s. %s has: %s. %s wins %s dollars!" % (
                 dealer_hand_string,
                 self.username(),
@@ -54,7 +49,6 @@ class EndgameService(Service):
                 display_bet,
             )
         elif player_sum == dealer_sum:
-            # self.userdata["bet"] = 0
             return "Dealer has: %s. %s has: %s. %s ties!" % (
                 dealer_hand_string,
                 self.username(),
