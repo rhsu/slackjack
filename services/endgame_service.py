@@ -31,7 +31,7 @@ class EndgameService(Service):
             self.userdata["money"] -= self.bet()
             self.userdata["bet"] = 0
             return "%s busted: %s and loses %s dollars" % (
-                self.username(), player_hand_string, self.bet())
+                self.username(), player_hand_string, display_bet)
         if dealer_sum > 21:
             self.userdata["money"] += self.userdata["bet"]
             self.userdata["bet"] = 0
