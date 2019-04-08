@@ -14,13 +14,14 @@ class GameController:
         self.roulette_service = RouletteService()
         # TODO maybe make a different controller for registering?
         if user_id in GLOBAL_STORE:
-            self.dealer_service = DealerService(GLOBAL_STORE[user_id])
+            self.user_data = GLOBAL_STORE[user_id]
+            self.dealer_service = DealerService(self.user_data)
             self.endgame_service = EndgameService(
-                GLOBAL_STORE[user_id], self.dealer_service)
+                self.user_data, self.dealer_service)
             self.game_service = GameService(
-                GLOBAL_STORE[user_id], self.endgame_service)
+                self.user_data, self.endgame_service)
             self.betting_service = BettingService(
-                GLOBAL_STORE[user_id], self.game_service)
+                self.user_data, self.game_service)
 
     def parse_command(self, command):
         command = command.lower()
@@ -42,8 +43,8 @@ class GameController:
             # TODO need to check if user is registered
             # TODO maybe be able to check other people's statuses
             return "%s has %s dollars" % (
-                GLOBAL_STORE[self.user_id]["username"],
-                GLOBAL_STORE[self.user_id]["money"])
+                self.user_data["username"],
+                self.user_data["money"])
         elif command.startswith("bet"):
             # check if user exists
             if self.user_id not in GLOBAL_STORE:
@@ -89,8 +90,8 @@ class GameController:
             del ROULETE_QUEUE[:]
             return ret_val
         elif command.startswith("rebuy"):
-            if GLOBAL_STORE[self.user_id]["money"] == 0:
-                GLOBAL_STORE[self.user_id]["money"] = 100
+            if self.user_data["money"] == 0:
+                self.user_data["money"] = 100
                 return "rebought"
             else:
                 return "you still have money"
