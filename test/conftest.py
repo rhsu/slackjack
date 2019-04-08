@@ -16,6 +16,11 @@ def default_user_data():
 
 
 @pytest.fixture
+def default_id():
+    return "fake_id"
+
+
+@pytest.fixture
 def some_busted_hand():
     return [
         Card("Q", ":spades:"),
