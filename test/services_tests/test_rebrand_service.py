@@ -11,9 +11,6 @@ def test_rebrand_no_user():
     assert service.rebrand() == "Cannot rebrand. Not registered"
 
 
-def test_rebrand_successful(global_store):
-    global_store[5] = {
-        "username": "test"
-    }
-    service = RebrandService(5, "new name")
+def test_rebrand_successful(default_id, default_user_data):
+    service = RebrandService(default_id, "new name")
     assert service.rebrand() == "successfully rebranded to new name"

@@ -1,24 +1,27 @@
-from global_store import GLOBAL_STORE
+from global_store import GLOBAL_STORE, ROULETE_QUEUE
 from services.betting_service import BettingService
 from services.dealer_service import DealerService
 from services.endgame_service import EndgameService
 from services.game_service import GameService
 from services.rebrand_service import RebrandService
 from services.register_service import RegisterService
+from services.roulette_service import RouletteService
 
 
 class GameController:
     def __init__(self, user_id):
         self.user_id = user_id
+        self.roulette_service = RouletteService()
         # TODO maybe make a different controller for registering?
         if user_id in GLOBAL_STORE:
-            self.dealer_service = DealerService(GLOBAL_STORE[user_id])
+            self.user_data = GLOBAL_STORE[user_id]
+            self.dealer_service = DealerService(self.user_data)
             self.endgame_service = EndgameService(
-                GLOBAL_STORE[user_id], self.dealer_service)
+                self.user_data, self.dealer_service)
             self.game_service = GameService(
-                GLOBAL_STORE[user_id], self.endgame_service)
+                self.user_data, self.endgame_service)
             self.betting_service = BettingService(
-                GLOBAL_STORE[user_id], self.game_service)
+                self.user_data, self.game_service)
 
     def parse_command(self, command):
         command = command.lower()
@@ -40,8 +43,8 @@ class GameController:
             # TODO need to check if user is registered
             # TODO maybe be able to check other people's statuses
             return "%s has %s dollars" % (
-                GLOBAL_STORE[self.user_id]["username"],
-                GLOBAL_STORE[self.user_id]["money"])
+                self.user_data.username,
+                self.user_data.money)
         elif command.startswith("bet"):
             # check if user exists
             if self.user_id not in GLOBAL_STORE:
@@ -65,9 +68,41 @@ class GameController:
             return self.game_service.play()
         elif command.startswith("stay") or command.startswith("stand"):
             return self.endgame_service.determine()
+        elif command.startswith("put"):
+            # TODO parse roulette command.
+            # syntax is put "<<bet amount>>" on "number or red or black"
+            parse = command.split(" ")
+            if len(parse) < 2:
+                return "must supply an amount to bet"
+            GLOBAL_STORE[self.user_id]["bet"] = parse[1]
+            ROULETE_QUEUE.append(self.user_id)
+            return "%s has joined" % GLOBAL_STORE[self.user_id]["username"]
+        elif command.startswith("start"):
+            result, color = self.roulette_service.spin()
+            ret_val = "the result is %s (%s)" % (result, color)
+            for user_id in ROULETE_QUEUE:
+                if GLOBAL_STORE[user_id]["bet"] == color:
+                    ret_val += "%s bet on %s. %s won" % (
+                        self.user_data["username"],
+                        color,
+                        self.user_data["username"])
+                elif GLOBAL_STORE[user_id]["bet"] == result:
+                    ret_val += "%s bet on (%s) %s won. " % (
+                        self.user_data["username"],
+                        self.user_data["bet"],
+                        color,
+                        self.user_data["username"])
+                else:
+                    ret_val += "%s bet on %s (%s). %s lost. " % (
+                        self.user_data["username"],
+                        self.user_data["bet"],
+                        color,
+                        self.user_data["username"])
+            del ROULETE_QUEUE[:]
+            return ret_val
         elif command.startswith("rebuy"):
-            if GLOBAL_STORE[self.user_id]["money"] == 0:
-                GLOBAL_STORE[self.user_id]["money"] = 100
+            if self.user_data.money == 0:
+                self.user_data.money = 100
                 return "rebought"
             else:
                 return "you still have money"

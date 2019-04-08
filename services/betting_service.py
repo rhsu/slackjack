@@ -1,16 +1,10 @@
-class BettingService:
+from services.service import Service
+
+
+class BettingService(Service):
     def __init__(self, userdata, gameservice):
-        self.userdata = userdata
+        Service.__init__(self, userdata)
         self.gameservice = gameservice
-
-    def money(self):
-        return self.userdata["money"]
-
-    def username(self):
-        return self.userdata["username"]
-
-    def bet(self):
-        return self.userdata["bet"]
 
     def place_bet(self, amount):
         if self.money() == 0:
@@ -23,6 +17,6 @@ class BettingService:
                 self.username()
             )
 
-        self.userdata["bet"] = amount
+        self.userdata.bet = amount
         result = self.gameservice.play()
         return "%s has bet %s. %s" % (self.username(), amount, result)

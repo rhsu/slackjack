@@ -13,5 +13,6 @@ class RebrandService:
         if self.user_id not in GLOBAL_STORE:
             return "Cannot rebrand. Not registered"
 
-        GLOBAL_STORE[self.user_id]["username"] = self.username
+        user_data = GLOBAL_STORE[self.user_id]
+        user_data.username = self.username
         return "successfully rebranded to %s" % self.username

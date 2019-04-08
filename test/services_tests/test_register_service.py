@@ -10,4 +10,4 @@ def test_register_already_exists(global_store):
 def test_register_works(global_store):
     result = RegisterService(5, "somename").register()
     assert result == "OK. I registered somename"
-    assert global_store[5]["username"] == "somename"
+    assert global_store[5].username == "somename"

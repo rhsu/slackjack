@@ -1,5 +1,5 @@
 from global_store import GLOBAL_STORE
-from models.deck import Deck
+from models.user_data import UserData
 
 
 class RegisterService:
@@ -11,13 +11,5 @@ class RegisterService:
         if self.user_id in GLOBAL_STORE:
             return "A user is already registered with this ID"
         else:
-            # TODO refactor this
-            GLOBAL_STORE[self.user_id] = {
-                "username": self.user_name,
-                "money": 100,
-                "hand": [],
-                "deck": Deck(),
-                "dealer_hand": [],
-                "bet": 0,
-            }
+            GLOBAL_STORE[self.user_id] = UserData(self.user_name)
             return "OK. I registered %s" % self.user_name
