@@ -1,27 +1,16 @@
+from services.service import Service
 from utils.hand_util import hand_string
 
 
-class GameService:
-    def __init__(self, user_data, endgame_service):
-        self.user_data = user_data
+class GameService(Service):
+    def __init__(self, userdata, endgame_service):
+        Service.__init__(self, userdata)
         self.endgame_service = endgame_service
 
-    def deck(self):
-        return self.user_data["deck"]
-
-    def hand(self):
-        return self.user_data["hand"]
-
-    def username(self):
-        return self.user_data["username"]
-
-    def money(self):
-        return self.user_data["money"]
-
     def play(self):
-        if self.user_data["money"] == 0:
+        if self.money() == 0:
             return "%s: Can't play. YOU HAVE NO MONEY" % self.username()
-        if self.user_data["bet"] == 0:
+        if self.bet() == 0:
             return "%s: Can't play. Must `bet` first" % self.username()
 
         if len(self.hand()) == 0:
@@ -30,13 +19,13 @@ class GameService:
 
             # TODO need to rethink this logic
             # I think the reset messed this up. Need a better way to reset.
-            if len(self.user_data["dealer_hand"]) == 0:
-                self.user_data["dealer_hand"].append(self.deck().deal())
-                self.user_data["dealer_hand"].append(self.deck().deal())
+            if len(self.dealer_hand()) == 0:
+                self.userdata["dealer_hand"].append(self.deck().deal())
+                self.userdata["dealer_hand"].append(self.deck().deal())
 
             return "Dealer's hand is: %s and :question:. %s's hand is %s" % (
-                    self.user_data["dealer_hand"][0],
-                    self.user_data["username"],
+                    self.userdata["dealer_hand"][0],
+                    self.username(),
                     hand_string(self.hand())
                 )
         else:
@@ -47,8 +36,9 @@ class GameService:
             if total_value > 21:
                 return self.endgame_service.determine()
             else:
-                return "Dealer's hand is: %s and :question:. %s's hand is %s" % (
-                        self.user_data["dealer_hand"][0],
-                        self.user_data["username"],
-                        hand_string(self.hand())
-                    )
+                return "Dealer's hand is: %s and :question:. %s's hand "\
+                       "is %s" % (
+                            self.userdata["dealer_hand"][0],
+                            self.username(),
+                            hand_string(self.hand())
+                        )

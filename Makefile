@@ -13,4 +13,7 @@ uninstall:
 install:
 	pip install -r requirements.txt
 
-.PHONY: run install uninstall debug test
+lint:
+	flake8 controllers/ models/ services/ test/ utils/
+
+.PHONY: run install uninstall debug test lint
