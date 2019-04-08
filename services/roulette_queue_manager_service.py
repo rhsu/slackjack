@@ -14,4 +14,3 @@ class RouletteQueueManangerService:
                 pass
             else:
                 pass
-

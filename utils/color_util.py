@@ -1,6 +1,7 @@
-# In number ranges from 1 to 10 and 19 to 28, 
+# In number ranges from 1 to 10 and 19 to 28,
 # # odd numbers are red and even are black.
-#  In ranges from 11 to 18 and 29 to 36, odd numbers are black and even are red. 
+#  In ranges from 11 to 18 and 29 to 36,
+# # odd numbers are black and even are red.
 
 
 def determine_color(number):
