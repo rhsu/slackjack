@@ -2,6 +2,24 @@ from services.endgame_service import EndgameService
 from test.mocks.mock_objects import MockDealerService
 
 
+def test_tie_occurs(default_user_data, winning_hand):
+    mock_dealer_service = MockDealerService(winning_hand)
+    default_user_data.hand = winning_hand
+    endgame_service = EndgameService(default_user_data, mock_dealer_service)
+    result = endgame_service.determine()
+    assert result == "Dealer has: 9 :clubs: 2 :clubs: 10 :clubs:. someone "\
+                     "has: 9 :clubs: 2 :clubs: 10 :clubs:. someone ties!"
+
+
+def test_player_busted(default_user_data, some_busted_hand):
+    mock_dealer_service = MockDealerService(some_busted_hand)
+    default_user_data.hand = some_busted_hand
+    endgame_service = EndgameService(default_user_data, mock_dealer_service)
+    result = endgame_service.determine()
+    assert result == "someone busted: Q :spades: K :spades: J :spades: "\
+                     "and loses 100 dollars"
+
+
 def test_dealer_busted(default_user_data, some_busted_hand, winning_hand):
     mock_dealer_service = MockDealerService(some_busted_hand)
     default_user_data.hand = winning_hand
