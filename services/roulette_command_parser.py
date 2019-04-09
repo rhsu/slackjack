@@ -11,6 +11,7 @@ class RouletteCommandParser:
 
         # look at token 1
         bet_amount = tokens[1]
+        # from pdb import set_trace; set_trace()
         try:
             bet_amount = int(tokens[1])
         except ValueError:
@@ -22,9 +23,11 @@ class RouletteCommandParser:
         if tokens[2].lower() != "on":
             return False, "Invalid *put* command: missing *on* keyword"
 
+        from pdb import set_trace; set_trace()
+
         # look at token 3
-        if tokens[3].lower() == "red" or tokens[3].lower == "black":
-            return True
+        if tokens[3].lower() == "red" or tokens[3].lower() == "black":
+            return True, "success"
 
         bet_number = tokens[3]
         try:
@@ -33,3 +36,5 @@ class RouletteCommandParser:
             return False, "Invalid bet number"
             if bet_number <= 0:
                 return False, "Invalid bet number"
+
+        return True, "success"
