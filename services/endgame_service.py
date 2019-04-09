@@ -25,15 +25,11 @@ class EndgameService(Service):
         # TODO: uh...
         self._userdata.reset_hands()
         if player_sum > 21:
-            # self.userdata.money -= self.bet()
-            # self.userdata.bet = 0
             self.decrease_money()
             self.set_bet(0)
             return "%s busted: %s and loses %s dollars" % (
                 self.username(), player_hand_string, display_bet)
         if dealer_sum > 21:
-            # self.userdata.money += self.userdata.bet
-            # self.userdata.bet = 0
             self.increase_money()
             self.set_bet(0)
             return "Dealer has: %s. %s has: %s. Dealer busted. %s wins "\
@@ -45,8 +41,6 @@ class EndgameService(Service):
                         display_bet,
                     )
         elif player_sum > dealer_sum:
-            # self.userdata.money += self.bet()
-            # self.userdata.bet = 0
             self.increase_money()
             self.set_bet(0)
             return "Dealer has: %s. %s has: %s. %s wins %s dollars!" % (
@@ -57,7 +51,6 @@ class EndgameService(Service):
                 display_bet,
             )
         elif player_sum == dealer_sum:
-            # self.userdata.bet = 0
             self.set_bet(0)
             return "Dealer has: %s. %s has: %s. %s ties!" % (
                 dealer_hand_string,
@@ -66,8 +59,6 @@ class EndgameService(Service):
                 self.username(),
             )
         else:
-            # self.userdata.money -= self.bet()
-            # self.userdata.bet = 0
             self.decrease_money()
             self.set_bet(0)
             return "Dealer has: %s. %s has: %s. %s loses %s dollars!" % (
