@@ -36,10 +36,8 @@ class GameService(Service):
             if total_value > 21:
                 return self.endgame_service.determine()
             else:
-                # TODO Is there no test for this?
                 return "Dealer's hand is: %s and :question:. %s's hand "\
                        "is %s" % (
-                            # self.userdata.dealer_hand[0],
                             self.dealer_hand()[0],
                             self.username(),
                             hand_string(self.hand())
