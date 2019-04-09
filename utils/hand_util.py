@@ -11,7 +11,6 @@ def hand_sum(hand):
             return simple_sum
         else:
             return new_sum
-        pass
     return simple_sum
 
 
