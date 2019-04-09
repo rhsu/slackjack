@@ -22,15 +22,5 @@ class Service:
         self._userdata.bet = value
         return value
 
-    # TODO this should not be in base
-    def decrease_money(self):
-        self._userdata.money -= self.bet()
-        return self._userdata.money
-
-    # TODO this should not be in base
-    def increase_money(self):
-        self._userdata.money += self.bet()
-        return self._userdata.money
-
     def money(self):
         return self._userdata.money
