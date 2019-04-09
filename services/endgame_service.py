@@ -7,9 +7,6 @@ class EndgameService(Service):
         Service.__init__(self, userdata)
         self.dealer_service = dealer_service
 
-    def hand_sum(self):
-        return hand_sum(self.hand())
-
     def determine(self):
         player_sum = hand_sum(self.hand())
         player_hand_string = hand_string(self.hand())
