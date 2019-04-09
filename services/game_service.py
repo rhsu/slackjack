@@ -20,11 +20,11 @@ class GameService(Service):
             # TODO need to rethink this logic
             # I think the reset messed this up. Need a better way to reset.
             if len(self.dealer_hand()) == 0:
-                self.userdata.dealer_hand.append(self.deck().deal())
-                self.userdata.dealer_hand.append(self.deck().deal())
+                self._userdata.dealer_hand.append(self.deck().deal())
+                self._userdata.dealer_hand.append(self.deck().deal())
 
             return "Dealer's hand is: %s and :question:. %s's hand is %s" % (
-                    self.userdata.dealer_hand[0],
+                    self.dealer_hand()[0],
                     self.username(),
                     hand_string(self.hand())
                 )

@@ -1,22 +1,36 @@
 # TODO. I don't think I need this anymore
 class Service:
     def __init__(self, userdata):
-        self.userdata = userdata
+        self._userdata = userdata
 
     def username(self):
-        return self.userdata.username
+        return self._userdata.username
 
     def hand(self):
-        return self.userdata.hand
+        return self._userdata.hand
 
     def deck(self):
-        return self.userdata.deck
+        return self._userdata.deck
 
     def dealer_hand(self):
-        return self.userdata.dealer_hand
+        return self._userdata.dealer_hand
 
     def bet(self):
-        return self.userdata.bet
+        return self._userdata.bet
+
+    def set_bet(self, value):
+        self._userdata.bet = value
+        return value
+
+    # TODO this should not be in base
+    def decrease_money(self):
+        self._userdata.money -= self.bet()
+        return self._userdata.money
+
+    # TODO this should not be in base
+    def increase_money(self):
+        self._userdata.money += self.bet()
+        return self._userdata.money
 
     def money(self):
-        return self.userdata.money
+        return self._userdata.money
