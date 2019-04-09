@@ -19,7 +19,7 @@ class EndgameService(Service):
         # storing bet as local variable before setting to 0
         display_bet = self.bet()
 
-        # TODO: uh...
+        # this is not ideal but I find it acceptable
         self._userdata.reset_hands()
         if player_sum > 21:
             self.decrease_money()
