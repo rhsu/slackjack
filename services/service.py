@@ -1,4 +1,3 @@
-# TODO. I don't think I need this anymore
 class Service:
     def __init__(self, userdata):
         self._userdata = userdata
