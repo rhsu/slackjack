@@ -20,8 +20,8 @@ class GameService(Service):
             # TODO need to rethink this logic
             # I think the reset messed this up. Need a better way to reset.
             if len(self.dealer_hand()) == 0:
-                self._userdata.dealer_hand.append(self.deck().deal())
-                self._userdata.dealer_hand.append(self.deck().deal())
+                self.dealer_hand().append(self.deck().deal())
+                self.dealer_hand().append(self.deck().deal())
 
             return "Dealer's hand is: %s and :question:. %s's hand is %s" % (
                     self.dealer_hand()[0],
@@ -36,9 +36,11 @@ class GameService(Service):
             if total_value > 21:
                 return self.endgame_service.determine()
             else:
+                # TODO Is there no test for this?
                 return "Dealer's hand is: %s and :question:. %s's hand "\
                        "is %s" % (
-                            self.userdata.dealer_hand[0],
+                            # self.userdata.dealer_hand[0],
+                            self.dealer_hand()[0],
                             self.username(),
                             hand_string(self.hand())
                         )
