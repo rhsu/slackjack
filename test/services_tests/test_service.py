@@ -29,3 +29,9 @@ def bet(default_user_data):
 def money(default_user_data):
     assert Service(
         default_user_data).money() == default_user_data.money
+
+
+def test_set_bet(default_user_data):
+    bet = Service(default_user_data).set_bet(5)
+    assert bet == 5
+    assert default_user_data.bet == 5
