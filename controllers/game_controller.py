@@ -5,7 +5,7 @@ from services.endgame_service import EndgameService
 from services.game_service import GameService
 from services.rebrand_service import RebrandService
 from services.register_service import RegisterService
-from services.roulette_command_parser import RouletteCommandParser
+from services.roulette_command_service import RouletteCommandService
 from services.roulette_service import RouletteService
 
 
@@ -70,7 +70,7 @@ class GameController:
         elif command.startswith("stay") or command.startswith("stand"):
             return self.endgame_service.determine()
         elif command.startswith("put"):
-            parsed = RouletteCommandParser(
+            parsed = RouletteCommandService(
                 command, self.user_id, self.user_data).is_valid()
             if parsed[0]:
                 return "%s has joined" % self.user_data.username

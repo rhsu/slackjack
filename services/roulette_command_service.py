@@ -1,7 +1,7 @@
 from global_store import ROULETE_QUEUE
 
 
-class RouletteCommandParser:
+class RouletteCommandService:
     # TODO put user_id on user_data
     def __init__(self, command, user_id, user_data):
         self.command = command
@@ -22,8 +22,9 @@ class RouletteCommandParser:
             bet_amount = int(tokens[1])
         except ValueError:
             return False, "Invalid bet amount"
-            if bet_amount <= 0:
-                return False, "Invalid bet amount"
+
+        if bet_amount <= 0:
+            return False, "Invalid bet amount"
 
         if bet_amount > self.user_data.money:
             return False, "Invalid bet amount: not enough money"
