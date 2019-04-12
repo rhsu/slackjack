@@ -45,8 +45,9 @@ class RouletteCommandService:
             bet_number = int(tokens[3])
         except ValueError:
             return False, "Invalid bet type: Cant bet on %s" % bet_number
-            if bet_number <= 0:
-                return False, "Invalid bet number"
+
+        if bet_number <= 0:
+            return False, "Invalid bet number"
 
         ROULETE_QUEUE.append(self.user_id)
         self.user_data.roulette_bet = tokens[3]

@@ -41,3 +41,10 @@ def test_not_valid_negative_bet(default_user_data, default_id):
     response = RouletteCommandService(
         command, default_id, default_user_data).is_valid()
     assert response == (False, "Invalid bet amount")
+
+
+def test_not_valid_missing_on(default_user_data, default_id):
+    command = "put 5 in 5"
+    response = RouletteCommandService(
+        command, default_id, default_user_data).is_valid()
+    assert response == (False, "Invalid *put* command: missing *on* keyword")
