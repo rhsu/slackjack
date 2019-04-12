@@ -46,7 +46,7 @@ class RouletteCommandService:
         except ValueError:
             return False, "Invalid bet type: Cant bet on %s" % bet_number
 
-        if bet_number <= 0:
+        if bet_number <= 0 or bet_number > 28:
             return False, "Invalid bet number"
 
         ROULETE_QUEUE.append(self.user_id)
