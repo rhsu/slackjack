@@ -5,6 +5,7 @@ from services.endgame_service import EndgameService
 from services.game_service import GameService
 from services.rebrand_service import RebrandService
 from services.register_service import RegisterService
+from services.roulette_command_parser import RouletteCommandParser
 from services.roulette_service import RouletteService
 
 
@@ -69,35 +70,35 @@ class GameController:
         elif command.startswith("stay") or command.startswith("stand"):
             return self.endgame_service.determine()
         elif command.startswith("put"):
-            # TODO parse roulette command.
-            # syntax is put "<<bet amount>>" on "number or red or black"
-            parse = command.split(" ")
-            if len(parse) < 2:
-                return "must supply an amount to bet"
-            GLOBAL_STORE[self.user_id]["bet"] = parse[1]
-            ROULETE_QUEUE.append(self.user_id)
-            return "%s has joined" % GLOBAL_STORE[self.user_id]["username"]
+            parsed = RouletteCommandParser(
+                command, self.user_id, self.user_data).is_valid()
+            if parsed[0]:
+                return "%s has joined" % self.user_data.username
+            else:
+                return "error: %s" % (parsed[1])
         elif command.startswith("start"):
             result, color = self.roulette_service.spin()
-            ret_val = "the result is %s (%s)" % (result, color)
+            ret_val = "the result is *%s* (*%s*). \n" % (result, color)
             for user_id in ROULETE_QUEUE:
-                if GLOBAL_STORE[user_id]["bet"] == color:
-                    ret_val += "%s bet on %s. %s won" % (
-                        self.user_data["username"],
-                        color,
-                        self.user_data["username"])
-                elif GLOBAL_STORE[user_id]["bet"] == result:
-                    ret_val += "%s bet on (%s) %s won. " % (
-                        self.user_data["username"],
-                        self.user_data["bet"],
-                        color,
-                        self.user_data["username"])
+                curr_user = GLOBAL_STORE[user_id]
+                if curr_user.roulette_bet == color:
+                    curr_user.money += curr_user.roulette_bet_amount
+                    ret_val += "*%s* bet on *%s*. *%s* won \n" % (
+                        curr_user.username,
+                        curr_user.roulette_bet,
+                        curr_user.username)
+                elif curr_user.roulette_bet == result:
+                    curr_user.money += curr_user.roulette_bet_amount
+                    ret_val += "*%s* bet on *%s*. *%s* won. \n" % (
+                        curr_user.username,
+                        curr_user.roulette_bet,
+                        curr_user.username)
                 else:
-                    ret_val += "%s bet on %s (%s). %s lost. " % (
-                        self.user_data["username"],
-                        self.user_data["bet"],
-                        color,
-                        self.user_data["username"])
+                    curr_user.money -= curr_user.roulette_bet_amount
+                    ret_val += "*%s* bet on *%s*. *%s* lost. \n" % (
+                        curr_user.username,
+                        curr_user.roulette_bet,
+                        curr_user.username)
             del ROULETE_QUEUE[:]
             return ret_val
         elif command.startswith("rebuy"):
