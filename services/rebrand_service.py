@@ -15,4 +15,4 @@ class RebrandService:
 
         user_data = GLOBAL_STORE[self.user_id]
         user_data.username = self.username
-        return "successfully rebranded to %s" % self.username
+        return f"successfully rebranded to {self.username}"
