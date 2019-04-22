@@ -33,7 +33,7 @@ class EndgameService(Service):
                    "%s dollars!" % (
                         dealer_hand_string,
                         self.username(),
-                        player_hand_string,
+                        player_hand_string, 
                         self.username(),
                         display_bet,
                     )

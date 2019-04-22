@@ -23,3 +23,6 @@ class Service:
 
     def money(self):
         return self._userdata.money
+
+    def roulette_bet_amount(self):
+        return self._userdata.roulette_bet_amount
