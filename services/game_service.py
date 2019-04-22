@@ -24,10 +24,10 @@ class GameService(Service):
                 self.dealer_hand().append(self.deck().deal())
 
             return "Dealer's hand is: %s and :question:. %s's hand is %s" % (
-                    self.dealer_hand()[0],
-                    self.username(),
-                    hand_string(self.hand())
-                )
+                self.dealer_hand()[0],
+                self.username(),
+                hand_string(self.hand())
+            )
         else:
             self.hand().append(self.deck().deal())
             total_value = 0
@@ -36,9 +36,8 @@ class GameService(Service):
             if total_value > 21:
                 return self.endgame_service.determine()
             else:
-                return "Dealer's hand is: %s and :question:. %s's hand "\
-                       "is %s" % (
-                            self.dealer_hand()[0],
-                            self.username(),
-                            hand_string(self.hand())
-                        )
+                return "Dealer's hand is: %s and :question:. %s's hand is %s" % (
+                    self.dealer_hand()[0],
+                    self.username(),
+                    hand_string(self.hand())
+                )
