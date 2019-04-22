@@ -9,9 +9,9 @@ class GameService(Service):
 
     def play(self):
         if self.money() == 0:
-            return "%s: Can't play. YOU HAVE NO MONEY" % self.username()
+            return f"{self.username()}: Can't play. YOU HAVE NO MONEY"
         if self.bet() == 0:
-            return "%s: Can't play. Must `bet` first" % self.username()
+            return f"{self.username()}: Can't play. Must `bet` first"
 
         if len(self.hand()) == 0:
             self.hand().append(self.deck().deal())

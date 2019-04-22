@@ -12,4 +12,4 @@ class RegisterService:
             return "A user is already registered with this ID"
         else:
             GLOBAL_STORE[self.user_id] = UserData(self.user_name)
-            return "OK. I registered %s" % self.user_name
+            return f"OK. I registered {self.user_name}"
