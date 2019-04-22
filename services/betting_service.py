@@ -8,14 +8,11 @@ class BettingService(Service):
 
     def place_bet(self, amount):
         if self.money() == 0:
-            return "%s: Can't play. Not enough money." % self.username()
+            return f"{self.username()}: Can't play. Not enough money."
         if amount > self.money():
-            return "%s: Can't bet %s. Not enough money." % (
-                self.username(), amount)
+            return f"{self.username()}: Can't bet {amount}. Not enough money."
         if self.bet() != 0:
-            return "%s: Bet already placed. Try `hit` or `stay`" % (
-                self.username()
-            )
+            return f"{self.username()}: Bet already placed. Try `hit` or `stay`"
 
         self.set_bet(amount)
         result = self.gameservice.play()
