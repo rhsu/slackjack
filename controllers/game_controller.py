@@ -78,7 +78,7 @@ class GameController:
                 return "error: %s" % (parsed[1])
         elif command.startswith("start"):
             result, color = self.roulette_service.spin()
-            ret_val = "the result is *%s* (*%s*). \n" % (result, color)
+            ret_val = f"the result is *{result}* (*{color}*) \n"
             for user_id in ROULETE_QUEUE:
                 curr_user = GLOBAL_STORE[user_id]
                 if curr_user.roulette_bet == color:
