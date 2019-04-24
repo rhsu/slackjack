@@ -29,14 +29,13 @@ class EndgameService(Service):
         if dealer_sum > 21:
             self._increase_money()
             self.set_bet(0)
-            return "Dealer has: %s. %s has: %s. Dealer busted. %s wins "\
-                   "%s dollars!" % (
-                        dealer_hand_string,
-                        self.username(),
-                        player_hand_string, 
-                        self.username(),
-                        display_bet,
-                    )
+            return "Dealer has: %s. %s has: %s. Dealer busted. %s wins %s dollars!" % (
+                dealer_hand_string,
+                self.username(),
+                player_hand_string,
+                self.username(),
+                display_bet
+            )
         elif player_sum > dealer_sum:
             self._increase_money()
             self.set_bet(0)
