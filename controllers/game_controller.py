@@ -41,11 +41,7 @@ class GameController:
                 return "must supply a username with rebrand"
             return RebrandService(self.user_id, parse[1]).rebrand()
         elif command.startswith("status"):
-            # TODO need to check if user is registered
-            # TODO maybe be able to check other people's statuses
-            return "%s has %s dollars" % (
-                self.user_data.username,
-                self.user_data.money)
+            return f"{self.user_data.username} has {self.user_data.money}"
         elif command.startswith("bet"):
             # check if user exists
             if self.user_id not in GLOBAL_STORE:
