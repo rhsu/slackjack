@@ -5,9 +5,8 @@ class RebuyService(Service):
         Service.__init__(self, userdata)
 
     def rebuy(self):
-        from pdb import set_trace; set_trace();
         if self.money() == 0:
-            self.money
-            return f"{self.username()} successfully rebought"
+            self.set_money(100)
+            return f"Rebuy successful. *{self.username()}* has 100 dollars"
         else:
-            return f"Can't rebuy {self.username()} still has money"
+            return f"Can't rebuy *{self.username()}* still has money"

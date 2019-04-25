@@ -23,3 +23,7 @@ class Service:
 
     def money(self):
         return self._userdata.money
+
+    def set_money(self, value):
+        self._userdata.money = value
+        return value
