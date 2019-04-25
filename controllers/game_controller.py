@@ -4,6 +4,7 @@ from services.dealer_service import DealerService
 from services.endgame_service import EndgameService
 from services.game_service import GameService
 from services.rebrand_service import RebrandService
+from services.rebuy_service import RebuyService
 from services.register_service import RegisterService
 from services.roulette_command_service import RouletteCommandService
 from services.roulette_service import RouletteService
@@ -16,6 +17,7 @@ class GameController:
         # TODO maybe make a different controller for registering?
         if user_id in GLOBAL_STORE:
             self.user_data = GLOBAL_STORE[user_id]
+            self.rebuy_service = RebuyService(self.user_data)
             self.dealer_service = DealerService(self.user_data)
             self.endgame_service = EndgameService(
                 self.user_data, self.dealer_service)
@@ -98,9 +100,5 @@ class GameController:
             del ROULETE_QUEUE[:]
             return ret_val
         elif command.startswith("rebuy"):
-            if self.user_data.money == 0:
-                self.user_data.money = 100
-                return "rebought"
-            else:
-                return "you still have money"
+            return self.rebuy_service.rebuy()
         return message
