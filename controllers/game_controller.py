@@ -105,4 +105,6 @@ class GameController:
             return self.rebuy_service.rebuy()
         elif command.startswith("simulate"):
             return self.simulation_service.simulate()
+        elif command.startswith("flip"):
+            return self.simulation_service.flip()
         return message
