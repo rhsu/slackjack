@@ -15,7 +15,6 @@ class GameController:
     def __init__(self, user_id):
         self.user_id = user_id
         self.roulette_service = RouletteService()
-        self.simulation_service = SimulationService(self.roulette_service)
         # TODO maybe make a different controller for registering?
         if user_id in GLOBAL_STORE:
             self.user_data = GLOBAL_STORE[user_id]
@@ -103,8 +102,4 @@ class GameController:
             return ret_val
         elif command.startswith("rebuy"):
             return self.rebuy_service.rebuy()
-        elif command.startswith("simulate"):
-            return self.simulation_service.simulate()
-        elif command.startswith("flip"):
-            return self.simulation_service.flip()
         return message
