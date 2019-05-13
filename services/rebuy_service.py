@@ -1,5 +1,6 @@
 from services.service import Service
 
+
 class RebuyService(Service):
     def __init__(self, userdata):
         Service.__init__(self, userdata)

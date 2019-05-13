@@ -1,5 +1,6 @@
 import random
 
+
 class SimulationService:
     def __init__(self, roulette_service):
         self._roulette_service = roulette_service

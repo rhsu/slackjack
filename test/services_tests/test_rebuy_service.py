@@ -1,5 +1,6 @@
 from services.rebuy_service import RebuyService
 
+
 def test_sucessfully_rebought(default_user_data):
     default_user_data.money = 0
     service = RebuyService(default_user_data)
