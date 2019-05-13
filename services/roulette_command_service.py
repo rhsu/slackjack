@@ -38,6 +38,7 @@ class RouletteCommandService:
             ROULETE_QUEUE.append(self.user_id)
             self.user_data.roulette_bet = tokens[3]
             self.user_data.roulette_bet_amount = bet_amount
+            self.user_data.roulette_bet_v2[tokens[3]] = bet_amount
             return True, "success"
 
         bet_number = tokens[3]
