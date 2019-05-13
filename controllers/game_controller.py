@@ -8,12 +8,14 @@ from services.rebuy_service import RebuyService
 from services.register_service import RegisterService
 from services.roulette_command_service import RouletteCommandService
 from services.roulette_service import RouletteService
+from services.help_service import HelpService
 
 
 class GameController:
     def __init__(self, user_id):
         self.user_id = user_id
         self.roulette_service = RouletteService()
+        self.help_service = HelpService()
         # TODO maybe make a different controller for registering?
         if user_id in GLOBAL_STORE:
             self.user_data = GLOBAL_STORE[user_id]
@@ -101,4 +103,6 @@ class GameController:
             return ret_val
         elif command.startswith("rebuy"):
             return self.rebuy_service.rebuy()
+        elif command.startswith("help"):
+            return self.help_service.help()
         return message
