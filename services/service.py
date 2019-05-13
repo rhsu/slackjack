@@ -26,3 +26,7 @@ class Service:
 
     def roulette_bet_amount(self):
         return self._userdata.roulette_bet_amount
+
+    def set_money(self, value):
+        self._userdata.money = value
+        return value
