@@ -11,7 +11,7 @@ class GameService(Service):
         if self.money() == 0:
             return f"{self.username()}: Can't play. YOU HAVE NO MONEY"
         if self.bet() == 0:
-            return f"{self.username()}: Can't play. Must `bet` first"
+            return f"{self.username()}: Can't play. Must *bet* first"
 
         if len(self.hand()) == 0:
             self.hand().append(self.deck().deal())
