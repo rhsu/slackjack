@@ -19,6 +19,7 @@ class Service:
 
     def set_bet(self, value):
         self._userdata.bet = value
+        self._userdata.money -= value
         return value
 
     def money(self):
