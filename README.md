@@ -1,3 +1,7 @@
+# NEWS!
+slackjack is now on `python3`. This readme will be updated soon.
+
+
 # Virtualenv
 In the project root directory after cloning run:  `python -m virtualenv .` 
 

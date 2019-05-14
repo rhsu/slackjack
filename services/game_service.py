@@ -9,9 +9,9 @@ class GameService(Service):
 
     def play(self):
         if self.money() == 0:
-            return "%s: Can't play. YOU HAVE NO MONEY" % self.username()
+            return f"{self.username()}: Can't play. YOU HAVE NO MONEY"
         if self.bet() == 0:
-            return "%s: Can't play. Must `bet` first" % self.username()
+            return f"{self.username()}: Can't play. Must `bet` first"
 
         if len(self.hand()) == 0:
             self.hand().append(self.deck().deal())
@@ -20,14 +20,14 @@ class GameService(Service):
             # TODO need to rethink this logic
             # I think the reset messed this up. Need a better way to reset.
             if len(self.dealer_hand()) == 0:
-                self.userdata.dealer_hand.append(self.deck().deal())
-                self.userdata.dealer_hand.append(self.deck().deal())
+                self.dealer_hand().append(self.deck().deal())
+                self.dealer_hand().append(self.deck().deal())
 
             return "Dealer's hand is: %s and :question:. %s's hand is %s" % (
-                    self.userdata.dealer_hand[0],
-                    self.username(),
-                    hand_string(self.hand())
-                )
+                self.dealer_hand()[0],
+                self.username(),
+                hand_string(self.hand())
+            )
         else:
             self.hand().append(self.deck().deal())
             total_value = 0
@@ -36,9 +36,8 @@ class GameService(Service):
             if total_value > 21:
                 return self.endgame_service.determine()
             else:
-                return "Dealer's hand is: %s and :question:. %s's hand "\
-                       "is %s" % (
-                            self.userdata.dealer_hand[0],
-                            self.username(),
-                            hand_string(self.hand())
-                        )
+                return "Dealer's hand is: %s and :question:. %s's hand is %s" % (
+                    self.dealer_hand()[0],
+                    self.username(),
+                    hand_string(self.hand())
+                )

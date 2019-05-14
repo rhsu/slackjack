@@ -4,7 +4,7 @@ class Card:
         self.suit = suit
 
     def __str__(self):
-        return "%s %s" % (self.rank, self.suit)
+        return f"{self.rank} {self.suit}"
 
     def value(self):
         try:

@@ -30,6 +30,14 @@ def some_busted_hand():
 
 
 @pytest.fixture
+def black_jack_hand():
+    return [
+        Card("A", ":hearts:"),
+        Card("J", ":spades:")
+    ]
+
+
+@pytest.fixture
 def losing_hand():
     return [
         Card("2", ":hearts:"),
