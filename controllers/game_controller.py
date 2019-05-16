@@ -3,13 +3,13 @@ from services.betting_service import BettingService
 from services.dealer_service import DealerService
 from services.endgame_service import EndgameService
 from services.game_service import GameService
+from services.help_service import HelpService
 from services.rebrand_service import RebrandService
 from services.rebuy_service import RebuyService
 from services.register_service import RegisterService
 from services.roulette_command_service import RouletteCommandService
-from services.roulette_service import RouletteService
-from services.help_service import HelpService
 from services.roulette_queue_manager_service import RouletteQueueManangerService
+from services.roulette_service import RouletteService
 
 
 class GameController:
