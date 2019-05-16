@@ -4,29 +4,29 @@ class RouletteQueueManangerService():
         self.roulette_queue = roulette_queue
 
     def determine(self, number, color):
-        ret_val = ""
+        ret_val = []
         for user_id in self.roulette_queue:
             curr_user = self.global_store[user_id]
             if curr_user.roulette_bet == color:
                 curr_user.money += curr_user.roulette_bet_amount
-                ret_val += "*%s* bet on *%s*. *%s* won \n" % (
+                ret_val.append("*%s* bet on *%s*. *%s* won \n" % (
                     curr_user.username,
                     curr_user.roulette_bet,
                     curr_user.username
-                )
+                ))
             elif curr_user.roulette_bet == number:
                 curr_user.money += curr_user.roulette_bet_amount
-                ret_val += "*%s* bet on *%s*. *%s* won. \n" % (
+                ret_val.append("*%s* bet on *%s*. *%s* won. \n" % (
                     curr_user.username,
                     curr_user.roulette_bet,
                     curr_user.username
-                )
+                ))
             else:
                 curr_user.money -= curr_user.roulette_bet_amount
-                ret_val += "*%s* bet on *%s*. *%s* lost. \n" % (
+                ret_val.append("*%s* bet on *%s*. *%s* lost. \n" % (
                     curr_user.username,
                     curr_user.roulette_bet,
                     curr_user.username
-                )
+                ))
         del self.roulette_queue[:]
-        return ret_val
+        return " ".join(ret_val)
