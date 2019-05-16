@@ -78,29 +78,6 @@ class GameController:
         elif command.startswith("start"):
             number, color = self.roulette_service.spin()
             return self.roulette_queue_manager_service.determine(number, color)
-            # ret_val = f"the result is *{result}* (*{color}*) \n"
-            # for user_id in ROULETE_QUEUE:
-            #     curr_user = GLOBAL_STORE[user_id]
-            #     if curr_user.roulette_bet == color:
-            #         curr_user.money += curr_user.roulette_bet_amount
-            #         ret_val += "*%s* bet on *%s*. *%s* won \n" % (
-            #             curr_user.username,
-            #             curr_user.roulette_bet,
-            #             curr_user.username)
-            #     elif curr_user.roulette_bet == result:
-            #         curr_user.money += curr_user.roulette_bet_amount
-            #         ret_val += "*%s* bet on *%s*. *%s* won. \n" % (
-            #             curr_user.username,
-            #             curr_user.roulette_bet,
-            #             curr_user.username)
-            #     else:
-            #         curr_user.money -= curr_user.roulette_bet_amount
-            #         ret_val += "*%s* bet on *%s*. *%s* lost. \n" % (
-            #             curr_user.username,
-            #             curr_user.roulette_bet,
-            #             curr_user.username)
-            # del ROULETE_QUEUE[:]
-            # return ret_val
         elif command.startswith("rebuy"):
             return self.rebuy_service.rebuy()
         elif command.startswith("help"):
