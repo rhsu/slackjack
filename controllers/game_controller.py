@@ -17,6 +17,7 @@ class GameController:
         self.user_id = user_id
         self.roulette_service = RouletteService()
         self.help_service = HelpService()
+        self.roulette_queue_manager_service = RouletteQueueManangerService(GLOBAL_STORE, ROULETE_QUEUE)
         # TODO maybe make a different controller for registering?
         if user_id in GLOBAL_STORE:
             self.user_data = GLOBAL_STORE[user_id]
@@ -25,7 +26,6 @@ class GameController:
             self.endgame_service = EndgameService(self.user_data, self.dealer_service)
             self.game_service = GameService(self.user_data, self.endgame_service)
             self.betting_service = BettingService(self.user_data, self.game_service)
-            self.roulette_queue_manager_service = RouletteQueueManangerService(self.roulette_service)
 
     def parse_command(self, command):
         command = command.lower()
@@ -76,7 +76,8 @@ class GameController:
             else:
                 return "error: %s" % (parsed[1])
         elif command.startswith("start"):
-            result, color = self.roulette_service.spin()
+            number, color = self.roulette_service.spin()
+            return self.roulette_queue_manager_service.determine(number, color)
             # ret_val = f"the result is *{result}* (*{color}*) \n"
             # for user_id in ROULETE_QUEUE:
             #     curr_user = GLOBAL_STORE[user_id]

@@ -3,18 +3,18 @@ class RouletteQueueManangerService():
         self.global_store = global_store
         self.roulette_queue = roulette_queue
 
-    def determine(self, color, number):
+    def determine(self, number, color):
         ret_val = ""
         for user_id in self.roulette_queue:
             curr_user = self.global_store[user_id]
-            if curr_user.roulette_bet == self.color:
+            if curr_user.roulette_bet == color:
                 curr_user.money += curr_user.roulette_bet_amount
                 ret_val += "*%s* bet on *%s*. *%s* won \n" % (
                     curr_user.username,
                     curr_user.roulette_bet,
                     curr_user.username
                 )
-            elif curr_user.roulette_bet == self.result:
+            elif curr_user.roulette_bet == number:
                 curr_user.money += curr_user.roulette_bet_amount
                 ret_val += "*%s* bet on *%s*. *%s* won. \n" % (
                     curr_user.username,
