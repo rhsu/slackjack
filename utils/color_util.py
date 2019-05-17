@@ -11,3 +11,20 @@ def determine_color(number):
     else:
         return "red" if number % 2 == 0 else "black"
     raise "not sure how it got here"
+
+
+def determine_icon(color):
+    if not is_color(color):
+        return color
+    display_color = ""
+    if color == "red":
+        display_color = ":red_circle:"
+    elif color == "black":
+        display_color = ":black_circle:"
+    elif color == "green":
+        display_color = ":green-dot-wow-kenny-u-couldnt-do-this-wtf:"
+    return display_color
+
+
+def is_color(color):
+    return color in set(["red", "black", "green"])
