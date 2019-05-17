@@ -9,7 +9,7 @@ class RouletteQueueManangerService():
             curr_user = self.global_store[user_id]
             if curr_user.roulette_bet == color:
                 curr_user.money += curr_user.roulette_bet_amount
-                ret_val.append("*%s* bet on *%s*. *%s* won \n" % (
+                ret_val.append("*%s* bet on *%s*. *%s* won. \n" % (
                     curr_user.username,
                     curr_user.roulette_bet,
                     curr_user.username
