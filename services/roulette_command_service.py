@@ -34,9 +34,18 @@ class RouletteCommandService:
             return False, "Invalid *put* command: missing *on* keyword"
 
         # look at token 3
-        if tokens[3].lower() == "red" or tokens[3].lower() == "black":
+        valid_color_bets = set([
+            "red", "black", "green", "green-dot-wow-kenny-u-couldnt-do-this-wtf:" ":red_circle:", ":black_circle:"])
+        if tokens[3].lower() in valid_color_bets:
             ROULETE_QUEUE.append(self.user_id)
-            self.user_data.roulette_bet = tokens[3]
+            if tokens[3] == ":red_circle:":
+                self.user_data.roulette_bet = "red"
+            elif tokens[3] == ":black_circle:":
+                self.user_data.roulette_bet = "black"
+            elif tokens[3] == ":green-dot-wow-kenny-u-couldnt-do-this-wtf:":
+                self.user_data.roulette_bet = "green"
+            else:
+                self.user_data.roulette_bet = tokens[3]
             self.user_data.roulette_bet_amount = bet_amount
             self.user_data.roulette_bet_v2[tokens[3]] = bet_amount
             return True, "success"
