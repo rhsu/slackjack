@@ -4,7 +4,7 @@ class RouletteQueueManangerService():
         self.roulette_queue = roulette_queue
 
     def determine(self, number, color):
-        ret_val = []
+        ret_val = [f"The result is {number} {color}. \n"]
         for user_id in self.roulette_queue:
             curr_user = self.global_store[user_id]
             if curr_user.roulette_bet == color:
