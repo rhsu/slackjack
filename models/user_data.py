@@ -12,6 +12,8 @@ class UserData:
         self.roulette_bet = None
         self.roulette_bet_amount = 0
 
+        self.roulette_bet_v2 = {}
+
     def reset_hands(self):
         self.hand = []
         self.dealer_hand = []
