@@ -1,3 +1,6 @@
+import os
+
+
 def determine_color(number):
     """
     In number ranges from 1 to 10 and 19 to 28, odd numbers are red and even are black.
@@ -18,11 +21,11 @@ def determine_icon(color):
         return color
     display_color = ""
     if color == "red":
-        display_color = ":red_circle:"
+        display_color = os.environ.get('RED_ICON', ":red_circle:")
     elif color == "black":
-        display_color = ":black_circle:"
+        display_color = os.environ.get('BLACK_ICON', ":black_circle:")
     elif color == "green":
-        display_color = ":green-dot-wow-kenny-u-couldnt-do-this-wtf:"
+        display_color = os.environ.get('GREEN_ICON', "")
     return display_color
 
 
