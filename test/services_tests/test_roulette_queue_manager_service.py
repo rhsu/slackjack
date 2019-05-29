@@ -16,7 +16,7 @@ def test_user_wins_match_by_number(global_store, roulette_queue):
     # run test
     service = RouletteQueueManangerService(global_store, roulette_queue)
     result = service.determine("red", 5)
-    assert result == "*user* bet on *red*. *user* won. \n"
+    assert result == "The result is red 5. \n *user* bet on *:red_circle:*. *user* won. \n"
     assert user.money == 110
     assert len(roulette_queue) == 0
 
@@ -35,7 +35,7 @@ def test_user_wins_match_by_color(global_store, roulette_queue):
     # run test
     service = RouletteQueueManangerService(global_store, roulette_queue)
     result = service.determine("red", 5)
-    assert result == "*user* bet on *5*. *user* won. \n"
+    assert result == "The result is red 5. \n *user* bet on *5*. *user* won. \n"
     assert user.money == 110
     assert len(roulette_queue) == 0
 
@@ -54,7 +54,7 @@ def test_user_loses(global_store, roulette_queue):
     # run test
     service = RouletteQueueManangerService(global_store, roulette_queue)
     result = service.determine("black", 2)
-    assert result == "*user* bet on *red*. *user* lost. \n"
+    assert result == "The result is black 2. \n *user* bet on *:red_circle:*. *user* lost. \n"
     assert user.money == 90
     assert len(roulette_queue) == 0
 
@@ -81,7 +81,8 @@ def test_two_users_winer_and_loser(global_store, roulette_queue):
     # run test
     service = RouletteQueueManangerService(global_store, roulette_queue)
     result = service.determine("red", 2)
-    assert result == "*winner* bet on *red*. *winner* won. \n *loser* bet on *black*. *loser* lost. \n"
+    assert result == "The result is red 2. \n *winner* bet on *:red_circle:*. *winner* won. \n *loser* bet "\
+                     "on *:black_circle:*. *loser* lost. \n"
     assert winner.money == 110
     assert loser.money == 90
     assert len(roulette_queue) == 0

@@ -1,5 +1,11 @@
 import os
 
+ICONS = {
+    "red": os.environ.get('RED_ICON', ":red_circle:"),
+    "black": os.environ.get('BLACK_ICON', ":black_circle:"),
+    "green": os.environ.get('GREEN_ICON', "")
+}
+
 
 def determine_color(number):
     """
@@ -21,11 +27,11 @@ def determine_icon(color):
         return color
     display_color = ""
     if color == "red":
-        display_color = os.environ.get('RED_ICON', ":red_circle:")
+        display_color = ICONS["red"]
     elif color == "black":
-        display_color = os.environ.get('BLACK_ICON', ":black_circle:")
+        display_color = ICONS["black"]
     elif color == "green":
-        display_color = os.environ.get('GREEN_ICON', "")
+        display_color = ICONS["green"]
     return display_color
 
 

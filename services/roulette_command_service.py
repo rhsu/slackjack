@@ -1,4 +1,5 @@
 from global_store import ROULETE_QUEUE
+from utils.color_util import ICONS
 
 
 class RouletteCommandService:
@@ -35,7 +36,7 @@ class RouletteCommandService:
 
         # look at token 3
         valid_color_bets = set([
-            "red", "black", "green", "green-dot-wow-kenny-u-couldnt-do-this-wtf:" ":red_circle:", ":black_circle:"])
+            "red", "black", "green", ":green-dot-wow-kenny-u-couldnt-do-this-wtf:" ":red_circle:", ":black_circle:"])
         if tokens[3].lower() in valid_color_bets:
             ROULETE_QUEUE.append(self.user_id)
             if tokens[3] == ":red_circle:":
