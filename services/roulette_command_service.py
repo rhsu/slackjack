@@ -1,4 +1,5 @@
 from global_store import ROULETE_QUEUE
+from utils.color_util import ICONS
 
 
 class RouletteCommandService:
@@ -34,9 +35,18 @@ class RouletteCommandService:
             return False, "Invalid *put* command: missing *on* keyword"
 
         # look at token 3
-        if tokens[3].lower() == "red" or tokens[3].lower() == "black":
+        valid_color_bets = set([
+            "red", "black", "green", ICONS["red"], ICONS["black"], ICONS["green"]])
+        if tokens[3].lower() in valid_color_bets:
             ROULETE_QUEUE.append(self.user_id)
-            self.user_data.roulette_bet = tokens[3]
+            if tokens[3] == ICONS["red"]:
+                self.user_data.roulette_bet = "red"
+            elif tokens[3] == ICONS["black"]:
+                self.user_data.roulette_bet = "black"
+            elif tokens[3] == ICONS["green"]:
+                self.user_data.roulette_bet = "green"
+            else:
+                self.user_data.roulette_bet = tokens[3]
             self.user_data.roulette_bet_amount = bet_amount
             self.user_data.roulette_bet_v2[tokens[3]] = bet_amount
             return True, "success"
