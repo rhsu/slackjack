@@ -36,14 +36,14 @@ class RouletteCommandService:
 
         # look at token 3
         valid_color_bets = set([
-            "red", "black", "green", ":green-dot-wow-kenny-u-couldnt-do-this-wtf:" ":red_circle:", ":black_circle:"])
+            "red", "black", "green", ICONS["red"], ICONS["black"], ICONS["green"]])
         if tokens[3].lower() in valid_color_bets:
             ROULETE_QUEUE.append(self.user_id)
-            if tokens[3] == ":red_circle:":
+            if tokens[3] == ICONS["red"]:
                 self.user_data.roulette_bet = "red"
-            elif tokens[3] == ":black_circle:":
+            elif tokens[3] == ICONS["black"]:
                 self.user_data.roulette_bet = "black"
-            elif tokens[3] == ":green-dot-wow-kenny-u-couldnt-do-this-wtf:":
+            elif tokens[3] == ICONS["green"]:
                 self.user_data.roulette_bet = "green"
             else:
                 self.user_data.roulette_bet = tokens[3]
