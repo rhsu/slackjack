@@ -22,7 +22,6 @@ class EndgameService(Service):
         # this is not ideal but I find it acceptable
         self._userdata.reset_hands()
         if player_sum > 21:
-            # self._decrease_money()
             self.set_bet(0)
             return "%s busted: %s and loses %s dollars" % (
                 self.username(), player_hand_string, display_bet)
@@ -58,7 +57,6 @@ class EndgameService(Service):
                 self.username(),
             )
         else:
-            # self._decrease_money()
             self.set_bet(0)
             return "Dealer has: %s. %s has: %s. %s loses %s dollars!" % (
                 dealer_hand_string,
