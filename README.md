@@ -1,23 +1,11 @@
-# NEWS!
-slackjack is now on `python3`. This readme will be updated soon.
-
-
 # Virtualenv
-In the project root directory after cloning run:  `python -m virtualenv .` 
+In the project root directory after cloning run:  `python3 -m virtualenv .` 
 
 Note that you might not have `virtualenv` installed. 
-It's recommeded to use `virtualenv` with Python2.7. Python3 is not supported yet. 
+It's recommeded to use `virtualenv` with `python3`
 
 To install `virtualenv`:
-run `pip install virtualenv` but make sure that `pip` is pointed to `Python2.7`. You can verify
-that with `which pip` which should return
-
-```
-$ which pip
-/usr/local/bin/pip
-```
-
-Important: not `pip3`!
+run `pip3 install virtualenv`
 
 # .env
 after being added as a collaborator, you'll need a `.env` file which can be created via `touch .env`
@@ -26,6 +14,12 @@ In the `.env` file type:
 
 ```
 SLACK_BOT_TOKEN=<<<Bot User OAuth Access Token Here>>>
+```
+
+green-dot icon is not an emoji. To get that feature working, you'll need to configure an environment variable which looks like such:
+
+```
+GREEN_ICON=':green-circle:'
 ```
 
 # Makefile
