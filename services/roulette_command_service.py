@@ -62,5 +62,5 @@ class RouletteCommandService:
             return False, "Invalid bet number"
 
         ROULETE_QUEUE.append(self.user_id)
-        self.user_data.roulette_bet_v2.append(bet_number, bet_amount)
+        self.user_data.roulette_bet_v2.append((bet_number, bet_amount))
         return True, "success"
