@@ -12,6 +12,7 @@ class UserData:
         self.roulette_bet = None
         self.roulette_bet_amount = 0
 
+        # trying to get some diff to show up
         self.roulette_bet_v2 = []
 
     def reset_hands(self):
