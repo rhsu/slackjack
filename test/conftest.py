@@ -1,5 +1,5 @@
 import pytest
-from global_store import GLOBAL_STORE
+from global_store import GLOBAL_STORE, ROULETE_QUEUE
 from models.card import Card
 from models.user_data import UserData
 
@@ -8,6 +8,7 @@ from models.user_data import UserData
 def run_around_test():
     yield
     GLOBAL_STORE.clear()
+    ROULETE_QUEUE.clear()
 
 
 @pytest.fixture
@@ -57,6 +58,11 @@ def winning_hand():
 @pytest.fixture
 def global_store():
     return GLOBAL_STORE
+
+
+@pytest.fixture
+def roulette_queue():
+    return ROULETE_QUEUE
 
 
 def _setup_default_user_data():

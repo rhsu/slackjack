@@ -3,10 +3,12 @@ from services.betting_service import BettingService
 from services.dealer_service import DealerService
 from services.endgame_service import EndgameService
 from services.game_service import GameService
+from services.help_service import HelpService
 from services.rebrand_service import RebrandService
 from services.rebuy_service import RebuyService
 from services.register_service import RegisterService
 from services.roulette_command_service import RouletteCommandService
+from services.roulette_queue_manager_service import RouletteQueueManangerService
 from services.roulette_service import RouletteService
 
 
@@ -14,17 +16,16 @@ class GameController:
     def __init__(self, user_id):
         self.user_id = user_id
         self.roulette_service = RouletteService()
+        self.help_service = HelpService()
+        self.roulette_queue_manager_service = RouletteQueueManangerService(GLOBAL_STORE, ROULETE_QUEUE)
         # TODO maybe make a different controller for registering?
         if user_id in GLOBAL_STORE:
             self.user_data = GLOBAL_STORE[user_id]
             self.rebuy_service = RebuyService(self.user_data)
             self.dealer_service = DealerService(self.user_data)
-            self.endgame_service = EndgameService(
-                self.user_data, self.dealer_service)
-            self.game_service = GameService(
-                self.user_data, self.endgame_service)
-            self.betting_service = BettingService(
-                self.user_data, self.game_service)
+            self.endgame_service = EndgameService(self.user_data, self.dealer_service)
+            self.game_service = GameService(self.user_data, self.endgame_service)
+            self.betting_service = BettingService(self.user_data, self.game_service)
 
     def parse_command(self, command):
         command = command.lower()
@@ -75,30 +76,10 @@ class GameController:
             else:
                 return "error: %s" % (parsed[1])
         elif command.startswith("start"):
-            result, color = self.roulette_service.spin()
-            ret_val = f"the result is *{result}* (*{color}*) \n"
-            for user_id in ROULETE_QUEUE:
-                curr_user = GLOBAL_STORE[user_id]
-                if curr_user.roulette_bet == color:
-                    curr_user.money += curr_user.roulette_bet_amount
-                    ret_val += "*%s* bet on *%s*. *%s* won \n" % (
-                        curr_user.username,
-                        curr_user.roulette_bet,
-                        curr_user.username)
-                elif curr_user.roulette_bet == result:
-                    curr_user.money += curr_user.roulette_bet_amount
-                    ret_val += "*%s* bet on *%s*. *%s* won. \n" % (
-                        curr_user.username,
-                        curr_user.roulette_bet,
-                        curr_user.username)
-                else:
-                    curr_user.money -= curr_user.roulette_bet_amount
-                    ret_val += "*%s* bet on *%s*. *%s* lost. \n" % (
-                        curr_user.username,
-                        curr_user.roulette_bet,
-                        curr_user.username)
-            del ROULETE_QUEUE[:]
-            return ret_val
+            number, color = self.roulette_service.spin()
+            return self.roulette_queue_manager_service.determine(number, color)
         elif command.startswith("rebuy"):
             return self.rebuy_service.rebuy()
+        elif command.startswith("help"):
+            return self.help_service.help()
         return message
