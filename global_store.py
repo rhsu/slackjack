@@ -1,2 +1,2 @@
 GLOBAL_STORE = {}
-ROULETE_QUEUE = []
+ROULETE_QUEUE = set([])

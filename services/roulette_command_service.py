@@ -38,7 +38,7 @@ class RouletteCommandService:
         valid_color_bets = set([
             "red", "black", "green", ICONS["red"], ICONS["black"], ICONS["green"]])
         if tokens[3].lower() in valid_color_bets:
-            ROULETE_QUEUE.append(self.user_id)
+            ROULETE_QUEUE.add(self.user_id)
             if tokens[3] == ICONS["red"]:
                 # self.user_data.roulette_bet = "red"
                 self.user_data.roulette_bet_v2.append(("red", bet_amount))
@@ -61,6 +61,6 @@ class RouletteCommandService:
         if bet_number <= 0 or bet_number > 28:
             return False, "Invalid bet number"
 
-        ROULETE_QUEUE.append(self.user_id)
+        ROULETE_QUEUE.add(self.user_id)
         self.user_data.roulette_bet_v2.append((bet_number, bet_amount))
         return True, "success"

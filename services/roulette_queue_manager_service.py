@@ -32,7 +32,8 @@ class RouletteQueueManangerService():
             #         determine_icon(curr_user.roulette_bet),
             #         curr_user.username
             #     ))
-        del self.roulette_queue[:]
+        # del self.roulette_queue[:]
+        self.roulette_queue.clear()
         return " ".join(ret_val)
 
     def determine_if_user_won(self, curr_user, number, color):
@@ -53,7 +54,8 @@ class RouletteQueueManangerService():
                 # TODO clear roulette_bet_v2
                 ret_val.append("*%s* bet on *%s*. *%s* lost. \n" % (
                     curr_user.username,
-                    determine_icon(curr_user.roulette_bet),
+                    # determine_icon(curr_user.roulette_bet),
+                    determine_icon(bet),
                     curr_user.username
                 ))
         return ret_val
