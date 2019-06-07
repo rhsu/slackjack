@@ -16,7 +16,7 @@ class RouletteQueueManangerService():
 
     def determine_if_user_won(self, curr_user, number, color):
         ret_val = []
-        for bet, bet_amount in curr_user.roulette_bet_v2:
+        for bet, bet_amount in curr_user.roulette_bet:
             if (bet == number or bet == color):
                 curr_user.money += bet_amount
                 ret_val.append("*%s* bet on *%s*. *%s* won. \n" % (
