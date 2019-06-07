@@ -40,13 +40,10 @@ class RouletteCommandService:
         if tokens[3].lower() in valid_color_bets:
             ROULETE_QUEUE.add(self.user_id)
             if tokens[3] == ICONS["red"]:
-                # self.user_data.roulette_bet = "red"
                 self.user_data.roulette_bet_v2.append(("red", bet_amount))
             elif tokens[3] == ICONS["black"]:
-                # self.user_data.roulette_bet = "black"
                 self.user_data.roulette_bet_v2.append(("black", bet_amount))
             elif tokens[3] == ICONS["green"]:
-                # self.user_data.roulette_bet = "green"
                 self.user_data.roulette_bet_v2.append(("green", bet_amount))
             else:
                 self.user_data.roulette_bet_v2.append((tokens[3], bet_amount))
