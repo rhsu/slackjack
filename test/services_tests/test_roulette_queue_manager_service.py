@@ -65,7 +65,7 @@ def test_two_users_winer_and_loser(global_store, roulette_queue):
     # build a loser
     loser = UserData("loser")
     loser_id = "loser"
-    winner.roulette_bet = [("black", 10)]
+    loser.roulette_bet = [("black", 10)]
 
     # put user into data structures
     global_store[winner_id] = winner
@@ -76,8 +76,9 @@ def test_two_users_winer_and_loser(global_store, roulette_queue):
     # run test
     service = RouletteQueueManangerService(global_store, roulette_queue)
     result = service.determine("red", 2)
-    assert result == "The result is red 2. \n *winner* bet on *:red_circle:*. *winner* won. \n *loser* bet "\
-                     "on *:black_circle:*. *loser* lost. \n"
+    assert "The result is red 2. \n" in result
+    assert "*loser* bet on *:black_circle:*. *loser* lost. \n" in result
+    assert "*winner* bet on *:red_circle:*. *winner* won. \n" in result
     assert winner.money == 110
     assert loser.money == 90
     assert len(roulette_queue) == 0
