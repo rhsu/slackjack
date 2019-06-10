@@ -25,7 +25,6 @@ class RouletteCommandService:
             return False, error_2
 
         success_3, error_3 = self.__validation_token_3()
-
         if not success_3:
             return False, error_3
 
@@ -51,6 +50,7 @@ class RouletteCommandService:
             return False, "Invalid *put* command: missing *on* keyword"
         return True, None
 
+    # TODO break this into smaller functions
     def __validation_token_3(self):
         valid_color_bets = set([
             "red", "black", "green", ICONS["red"], ICONS["black"], ICONS["green"]
