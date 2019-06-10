@@ -24,9 +24,11 @@ class RouletteCommandService:
         if not success_2:
             return False, error_2
 
-        success_3, error_3 = self.__validation_token_3()
-        if not success_3:
-            return False, error_3
+        valid_color, color_error = self.__valid_color_bet()
+        if not valid_color:
+            valid_number, number_error = self.__valid_number_bet()
+            if not valid_number:
+                return False, f"{color_error} or {number_error}"
 
         ROULETE_QUEUE.add(self.user_id)
         self.user_data.roulette_bet.append((self.bet_number, self.bet_amount))
@@ -50,31 +52,36 @@ class RouletteCommandService:
             return False, "Invalid *put* command: missing *on* keyword"
         return True, None
 
-    # TODO break this into smaller functions
-    def __validation_token_3(self):
+    def __valid_color_bet(self):
         valid_color_bets = set([
             "red", "black", "green", ICONS["red"], ICONS["black"], ICONS["green"]
         ])
 
-        if self.tokens[3].lower() in valid_color_bets:
-            ROULETE_QUEUE.add(self.user_id)
-            if self.tokens[3] == ICONS["red"]:
-                self.user_data.roulette_bet.append(("red", self.bet_amount))
-            elif self.tokens[3] == ICONS["black"]:
-                self.user_data.roulette_bet.append(("black", self.bet_amount))
-            elif self.tokens[3] == ICONS["green"]:
-                self.user_data.roulette_bet.append(("green", self.bet_amount))
-            else:
-                self.user_data.roulette_bet.append((self.tokens[3], self.bet_amount))
-            return True, "success"
+        icon_color_mapping = {
+            ICONS["red"]: "red",
+            ICONS["black"]: "black",
+            ICONS["green"]: "green"
+        }
 
-        self.bet_number = self.tokens[3]
+        bet_token = self.tokens[3]
+        roulette_bet = self.user_data.roulette_bet
+
+        if bet_token in valid_color_bets:
+            if bet_token in icon_color_mapping:
+                self.bet_number = icon_color_mapping["bet_token"]
+            else:
+                self.bet_number = bet_token
+            return True, None
+        else:
+            return False, "Invalid Bet Color"
+
+    def __valid_number_bet(self):
         try:
             self.bet_number = int(self.tokens[3])
         except ValueError:
-            return False, "Invalid bet type: Cant bet on %s" % self.bet_number
+            return False, "Invalid Bet Number"
 
         if self.bet_number <= 0 or self.bet_number > 28:
-            return False, "Invalid bet number"
+            return False, "Invalid Bet Number"
 
         return True, None
