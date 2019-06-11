@@ -9,10 +9,7 @@ class UserData:
         self.hand = []
         self.money = 100
         self.username = username
-        self.roulette_bet = None
-        self.roulette_bet_amount = 0
-
-        self.roulette_bet_v2 = {}
+        self.roulette_bet = []
 
     def reset_hands(self):
         self.hand = []
