@@ -65,7 +65,6 @@ class RouletteCommandService:
         }
 
         bet_token = self.tokens[3]
-        roulette_bet = self.user_data.roulette_bet
 
         if bet_token in valid_color_bets:
             if bet_token in icon_color_mapping:
