@@ -24,6 +24,7 @@ class RouletteCommandService:
         if not success_2:
             return False, error_2
 
+        # Validation Token 3 here
         valid_color, color_error = self.__valid_color_bet()
         if not valid_color:
             valid_number, number_error = self.__valid_number_bet()
