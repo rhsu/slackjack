@@ -8,6 +8,7 @@ class DealerService(Service):
         # TODO figure out why this is crashing later.
         # raise RuntimeError("dealer is already initialized")
         if (len(self.dealer_hand()) != 0):
+            print("Initializing dealer but dealer didn't exist")
             return
         self.dealer_hand().append(self.deck().deal())
         self.dealer_hand().append(self.deck().deal())

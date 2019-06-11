@@ -35,6 +35,9 @@ def parse_bot_commands(slack_events):
     """
     for event in slack_events:
         if event["type"] == "message" and "subtype" not in event:
+            # route here
+            # router = GameRouter(event)
+
             message = GameController(event["user"]).parse_command(
                 event["text"]
             )
