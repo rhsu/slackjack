@@ -54,11 +54,11 @@ def test_not_valid_bet_type(default_user_data, default_id):
     command = "put 5 on w"
     response = RouletteCommandService(
         command, default_id, default_user_data).is_valid()
-    assert response == (False, "Invalid bet type: Cant bet on w")
+    assert response == (False, "Invalid Bet Color or Invalid Bet Number")
 
 
 def test_not_valid_bet_number(default_user_data, default_id):
     command = "put 5 on -99"
     response = RouletteCommandService(
         command, default_id, default_user_data).is_valid()
-    assert response == (False, "Invalid bet number")
+    assert response == (False, "Invalid Bet Color or Invalid Bet Number")
