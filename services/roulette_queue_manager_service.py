@@ -14,10 +14,17 @@ class RouletteQueueManangerService():
         self.roulette_queue.clear()
         return " ".join(ret_val)
 
-    def determine_if_user_won(self, curr_user, number, color):
+    def determine_if_user_won(self, curr_user, color, number):
         ret_val = []
         for bet, bet_amount in curr_user.roulette_bet:
-            if (bet == number or bet == color):
+            if bet == number:
+                curr_user.money += bet_amount * 35
+                ret_val.append("*%s* bet on *%s*. *%s* won. \n" % (
+                    curr_user.username,
+                    determine_icon(bet),
+                    curr_user.username
+                ))
+            elif bet == color:
                 curr_user.money += bet_amount
                 ret_val.append("*%s* bet on *%s*. *%s* won. \n" % (
                     curr_user.username,
