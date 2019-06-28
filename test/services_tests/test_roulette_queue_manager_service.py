@@ -6,7 +6,7 @@ def test_user_wins_match_by_number(global_store, roulette_queue):
     # build a user
     user = UserData("user")
     user_id = "user"
-    user.roulette_bet = [("red", 10)]
+    user.roulette_bet = [(5, 10)]
 
     # put user into data structures
     global_store[user_id] = user
@@ -15,8 +15,8 @@ def test_user_wins_match_by_number(global_store, roulette_queue):
     # run test
     service = RouletteQueueManangerService(global_store, roulette_queue)
     result = service.determine("red", 5)
-    assert result == "The result is red 5. \n *user* bet on *:red_circle:*. *user* won. \n"
-    assert user.money == 110
+    assert result == "The result is red 5. \n *user* bet on *5*. *user* won. \n"
+    assert user.money == 450
     assert len(roulette_queue) == 0
 
 
@@ -25,7 +25,7 @@ def test_user_wins_match_by_color(global_store, roulette_queue):
     user = UserData("user")
     user_id = "user"
     # TODO: for consistency. I would like the thing to be (string, int)
-    user.roulette_bet = [(5, 10)]
+    user.roulette_bet = [("red", 10)]
 
     global_store[user_id] = user
     roulette_queue.add(user_id)
@@ -33,7 +33,7 @@ def test_user_wins_match_by_color(global_store, roulette_queue):
     # run test
     service = RouletteQueueManangerService(global_store, roulette_queue)
     result = service.determine("red", 5)
-    assert result == "The result is red 5. \n *user* bet on *5*. *user* won. \n"
+    assert result == "The result is red 5. \n *user* bet on *:red_circle:*. *user* won. \n"
     assert user.money == 110
     assert len(roulette_queue) == 0
 
