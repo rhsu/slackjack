@@ -6,11 +6,11 @@ from services.game_service import GameService
 from services.help_service import HelpService
 from services.rebrand_service import RebrandService
 from services.rebuy_service import RebuyService
+from services.red_snake_service import RedSnakeService
 from services.register_service import RegisterService
 from services.roulette_command_service import RouletteCommandService
 from services.roulette_queue_manager_service import RouletteQueueManangerService
 from services.roulette_service import RouletteService
-
 
 class GameController:
     def __init__(self, user_id):
@@ -26,6 +26,7 @@ class GameController:
             self.endgame_service = EndgameService(self.user_data, self.dealer_service)
             self.game_service = GameService(self.user_data, self.endgame_service)
             self.betting_service = BettingService(self.user_data, self.game_service)
+            self.red_snake_service = RedSnakeService(self.user_data)
 
     def parse_command(self, command):
         command = command.lower()
@@ -82,4 +83,6 @@ class GameController:
             return self.rebuy_service.rebuy()
         elif command.startswith("help"):
             return self.help_service.help()
+        elif command.startswith("red snake"):
+            return self.red_snake_service.play()
         return message
