@@ -14,7 +14,7 @@ class RouletteQueueManangerService():
         self.roulette_queue.clear()
         return " ".join(ret_val)
 
-    def determine_if_user_won(self, curr_user, color, number):
+    def determine_if_user_won(self, curr_user, number, color):
         ret_val = []
         for bet, bet_amount in curr_user.roulette_bet:
             if bet == number:
