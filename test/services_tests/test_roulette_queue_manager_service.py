@@ -14,8 +14,8 @@ def test_user_wins_match_by_number(global_store, roulette_queue):
 
     # run test
     service = RouletteQueueManangerService(global_store, roulette_queue)
-    result = service.determine("red", 5)
-    assert result == "The result is red 5. \n *user* bet on *5*. *user* won. \n"
+    result = service.determine(5, "red")
+    assert result == "The result is 5 :red_circle:. \n *user* bet on *5*. *user* won. \n"
     assert user.money == 450
     assert len(roulette_queue) == 0
 
@@ -32,8 +32,8 @@ def test_user_wins_match_by_color(global_store, roulette_queue):
 
     # run test
     service = RouletteQueueManangerService(global_store, roulette_queue)
-    result = service.determine("red", 5)
-    assert result == "The result is red 5. \n *user* bet on *:red_circle:*. *user* won. \n"
+    result = service.determine(5, "red")
+    assert result == "The result is 5 :red_circle:. \n *user* bet on *:red_circle:*. *user* won. \n"
     assert user.money == 110
     assert len(roulette_queue) == 0
 
@@ -50,8 +50,8 @@ def test_user_loses(global_store, roulette_queue):
 
     # run test
     service = RouletteQueueManangerService(global_store, roulette_queue)
-    result = service.determine("black", 2)
-    assert result == "The result is black 2. \n *user* bet on *:red_circle:*. *user* lost. \n"
+    result = service.determine(2, "black")
+    assert result == "The result is 2 :black_circle:. \n *user* bet on *:red_circle:*. *user* lost. \n"
     assert user.money == 90
     assert len(roulette_queue) == 0
 
@@ -75,8 +75,8 @@ def test_two_users_winer_and_loser(global_store, roulette_queue):
 
     # run test
     service = RouletteQueueManangerService(global_store, roulette_queue)
-    result = service.determine("red", 2)
-    assert "The result is red 2. \n" in result
+    result = service.determine(2, "red")
+    assert "The result is 2 :red_circle:. \n" in result
     assert "*loser* bet on *:black_circle:*. *loser* lost. \n" in result
     assert "*winner* bet on *:red_circle:*. *winner* won. \n" in result
     assert winner.money == 110
