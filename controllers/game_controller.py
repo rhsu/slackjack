@@ -26,7 +26,7 @@ class GameController:
             self.endgame_service = EndgameService(self.user_data, self.dealer_service)
             self.game_service = GameService(self.user_data, self.endgame_service)
             self.betting_service = BettingService(self.user_data, self.game_service)
-            self.red_snake_service = RedSnakeService(self.user_data)
+            self.red_snake_service = RedSnakeService(self.user_data, self.roulette_service)
 
     def parse_command(self, command):
         command = command.lower()

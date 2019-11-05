@@ -25,3 +25,12 @@ class MockSimulationService:
 
     def flip(self):
         return "flip"
+
+
+class MockRouletteService:
+    def __init__(self, number, color):
+        self.number = number
+        self.color = color
+
+    def spin(self):
+        return self.number, self.color
