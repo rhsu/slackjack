@@ -31,3 +31,11 @@ class Service:
     def set_money(self, value):
         self._userdata.money = value
         return value
+
+    def decrease_money(self, value):
+        self._userdata.money -= value
+        return value
+
+    def increase_money(self, value):
+        self._userdata.money += value
+        return value
